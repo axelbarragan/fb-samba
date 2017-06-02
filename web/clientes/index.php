@@ -18,7 +18,7 @@ index();
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Bienvenido.
+          Hotel <?php echo $_SESSION['empresa_usuario']; ?>
           <small></small>
         </h1>
         <ol class="breadcrumb">

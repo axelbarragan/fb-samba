@@ -43,7 +43,7 @@ class Hoteles extends Conexion {
     $resultado = $this->mysqli->query($query);
     if($resultado) {
       $last_id = $this->mysqli->insert_id;
-      $query   = "INSERT INTO usuarios VALUES (null,'$this->nombreCont','$this->apellidoCont','$last_id')"; 
+      $query   = "INSERT INTO usuarios VALUES (null,'$this->nombreCont','$this->apellidoCont','$this->nombre')"; 
       $res     = $this->mysqli->query($query);
       if($res) {
         $last_id = $this->mysqli->insert_id;
@@ -134,6 +134,22 @@ class Hoteles extends Conexion {
     }
     echo json_encode($arreglo);
       //return "<tr><td>asd</td><td>asd</td><td>asd</td><td>asd</td><td>asd</td><td>asd</td></tr>";
+  }
+
+  public function contarHoteles() {
+    $query = "SELECT * FROM hotel";
+    $res   = $this->mysqli->query($query);
+    if($res) {
+      $cantidadHoteles = $res->num_rows;
+      $query = "SELECT * FROM habitaciones";
+      $res   = $this->mysqli->query($query);
+      if($res) {
+        $cantidadHabitaciones = $res->num_rows;
+        $valores = array("cuantosHoteles" => $cantidadHoteles, "cuantasHabitaciones" => $cantidadHabitaciones);
+        echo json_encode($valores);
+      }
+      
+    }
   }
 }
 ?>

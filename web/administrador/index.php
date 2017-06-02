@@ -33,11 +33,11 @@ index();
         <div class="row">
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-              <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+              <span class="info-box-icon bg-aqua"><i class="fa fa-hospital-o"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">CPU Traffic</span>
-                <span class="info-box-number">90<small>%</small></span>
+                <span class="info-box-text">Hoteles</span>
+                <span class="info-box-number cuantosHoteles"></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -46,11 +46,11 @@ index();
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-              <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+              <span class="info-box-icon bg-red"><i class="fa fa-bed"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-text">Habitaciones</span>
+                <span class="info-box-number cuantasHabitaciones"></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -109,28 +109,22 @@ index();
   <script src="<?php echo URL; ?>dist/js/demo.js"></script>
   <script>
     $(document).ready(function() {
-      $('.dropdown-menu').click(function(e) {
-        e.stopPropagation();
-      });
-      $('.botonSalir').click(function() {
-        var ttk = $(this).attr("token");
-        var dataString = 'ttk='+ttk;
-        $.ajax({
+      $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>controlador/logout",
-          data: dataString,
+          url: "<?php echo URL; ?>controlador/cuantosHoteles",
           beforeSend: function() {
-            alert('Datos serializados: '+dataString);
+            //alert('Datos serializados: ');
           },
           success: function(data) {
-            alert(data);
-            if(data == 'adios') {
-              window.location.href = "<?php echo URL; ?>login";
-            } else {
-              alert(data);
-            }
+            //alert(data);
+            var json=$.parseJSON(data);
+            $('.cuantosHoteles').html(json.cuantosHoteles);
+            $('.cuantasHabitaciones').html(json.cuantasHabitaciones);
           }
         });
+
+      $('.dropdown-menu').click(function(e) {
+        e.stopPropagation();
       });
     });
   </script>

@@ -26,13 +26,9 @@
       $this->user = $usuario;
       $this->pass = $pass;
       $this->salt = SALT;
-
       $this->pass = hash_hmac("sha256", $this->pass, $this->salt);
-      
-      //$query    = "SELECT * FROM sesion uno I WHERE nombre_usuario = '".$this->user."'";
       $query = "SELECT *  FROM sesion INNER JOIN usuarios ON sesion.id_usuario = usuarios.id_usuario INNER JOIN nivel_usuario ON sesion.id_nivel = nivel_usuario.id_nivel WHERE sesion.nombre_usuario = '".$this->user."'";
       $consulta = $this->mysqli->query($query);
-
       if($row = $consulta->fetch_array()) {
         if($row['pass_usuario'] == $this->pass) {
           session_start();

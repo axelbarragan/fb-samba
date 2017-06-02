@@ -38,7 +38,7 @@
           session_start();
           $_SESSION['sesion_iniciada'] = "si";
           $_SESSION['nombre_usuario']  = $row['nombre_usuario']." ".$row['apellidos_usuario'];
-          $_SESSION['nivel_usuario']   = $row['nivel'];
+          $_SESSION['nivel_usuario']   = $row['letra_nivel'];
           $_SESSION['alias_usuario']   = $row['user']; 
           $_SESSION['empresa_usuario'] = $row['empresa'];
           $token = md5(uniqid(rand(), TRUE));
@@ -57,17 +57,19 @@
       $this->mysqli->close();
     }
 
-    public function cerrarSesion($token) {
+    public function cerrarSesion(/*$token*/) {
       session_start();
-      $this->tokenRecibido = $token;
-      $this->token = $_SESSION['token'];
-      if($this->token == $this->tokenRecibido) {
-        $_SESSION = array();
+      $_SESSION = array();
         session_destroy();
         echo "adios";
+      
+      /*$this->tokenRecibido = $token;
+      $this->token = $_SESSION['token'];
+      if($this->token == $this->tokenRecibido) {
+        
       } else {
         echo "error";
-      }
+      }*/
       
     }
 

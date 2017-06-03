@@ -36,7 +36,7 @@ index();
               <span class="info-box-icon bg-aqua"><i class="fa fa-hospital-o"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Hoteles</span>
+                <span class="info-box-text">Total de hoteles</span>
                 <span class="info-box-number cuantosHoteles"></span>
               </div>
               <!-- /.info-box-content -->
@@ -49,7 +49,7 @@ index();
               <span class="info-box-icon bg-red"><i class="fa fa-bed"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Habitaciones</span>
+                <span class="info-box-text">Total de habitaciones</span>
                 <span class="info-box-number cuantasHabitaciones"></span>
               </div>
               <!-- /.info-box-content -->
@@ -125,6 +125,26 @@ index();
 
       $('.dropdown-menu').click(function(e) {
         e.stopPropagation();
+      });
+      $('.botonSalir').click(function() {
+        var ttk = $(this).attr("token");
+        var dataString = 'ttk='+ttk;
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>controlador/logout",
+          data: dataString,
+          beforeSend: function() {
+            //alert('Datos serializados: '+dataString);
+          },
+          success: function(data) {
+            //alert(data);
+            if(data == 'adios') {
+              window.location.href = "<?php echo URL; ?>login";
+            } else {
+              alert(data);
+            }
+          }
+        });
       });
     });
   </script>

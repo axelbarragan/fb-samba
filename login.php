@@ -76,10 +76,10 @@
           url: "<?php echo URL; ?>controlador/login",
           data: dataString,
           beforeSend: function() {
-            alert('Datos serializados: '+dataString);
+            //alert('Datos serializados: '+dataString);
           },
           success: function(data) {
-            alert("Recibiendo: "+data);
+            //alert("Recibiendo: "+data);
             if(data == 'oka') {
               window.location.href = "redireccion";
             }

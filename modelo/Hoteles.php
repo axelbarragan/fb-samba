@@ -64,36 +64,47 @@ class Hoteles extends Conexion {
 
     #Método para editar
   public function editar($id) {
-      //Código para editar
+    $this->id = $id;
+    $query = "SELECT * FROM hotel WHERE id_hotel = '".$this->id."'";
+    $res   = $this->mysqli->query($query);
+    if($res) {
+      while ($row = $res->fetch_assoc()) {
+      $columns[] = $row;
+    }
+    header('Content-type: application/json; charset=utf-8');
+    echo json_encode($columns);
+  } else {
+    echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
   }
+}
 
     #Método para eliminar
-  public function eliminar($id) {
-    $this->id  = $id;
-    $query     = "DELETE FROM hotel WHERE id_hotel = '".$this->id."'";
-    $resultado = $this->mysqli->query($query);
-    if($resultado) {
-      echo "Eliminado";
-    } else {
-      echo "No se pudo";
-    }
+public function eliminar($id) {
+  $this->id  = $id;
+  $query     = "DELETE FROM hotel WHERE id_hotel = '".$this->id."'";
+  $resultado = $this->mysqli->query($query);
+  if($resultado) {
+    echo "Eliminado";
+  } else {
+    echo "No se pudo";
   }
+}
 
     #Método para ver datos
-  public function ver($id) {
-    $this->id = $id;
-    $columns  = array();
-    session_start();
-    $_SESSION['idHotel'] = $this->id;
-    $query =  $query = "SELECT *  FROM hotel INNER JOIN habitaciones ON hotel.id_hotel = habitaciones.id_hotel WHERE hotel.id_hotel = '".$this->id."'";
-    $resultado = $this->mysqli->query($query);
-    if($resultado) {
-      while ($row = $resultado->fetch_assoc()) {
-        $columns[] = $row;
-      }
-      header('Content-type: application/json; charset=utf-8');
+public function ver($id) {
+  $this->id = $id;
+  $columns  = array();
+  session_start();
+  $_SESSION['idHotel'] = $this->id;
+  $query =  $query = "SELECT *  FROM hotel INNER JOIN habitaciones ON hotel.id_hotel = habitaciones.id_hotel WHERE hotel.id_hotel = '".$this->id."'";
+  $resultado = $this->mysqli->query($query);
+  if($resultado) {
+    while ($row = $resultado->fetch_assoc()) {
+      $columns[] = $row;
+    }
+    header('Content-type: application/json; charset=utf-8');
       //var_dump($columns);
-      echo json_encode($columns);
+    echo json_encode($columns);
       /*switch(json_last_error()) {
         case JSON_ERROR_NONE:
         echo ' - Sin errores';

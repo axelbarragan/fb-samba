@@ -32,56 +32,15 @@ index();
         <!-- Info boxes -->
         <div class="row">
           <div class="col-lg-12">
-            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>NOMBRE</th>
-                  <th>DIRECCIÓN</th>
-                  <th>TELÉFONO</th>
-                  <th>ACCION</th>
-                </tr>
-
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-            <div class="vamoaver"></div>
+            <form>
+              <input type="text" name="hotelNombre" id="hotelNombre">
+            </form>
           </div>
         </div>
         <!-- /.row -->
         <!-- /.row -->
       </section>
       <!-- /.content -->
-    </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </div>
-          <div class="modal-body">
-          <div class="col-lg-12">
-            <form>
-              <div class="form-group">
-                <label for="hotelNombre">Nombre</label>
-                <input type="text" name="hotelNombre" disabled id="hotelNombre" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="hotelDireccion">Dirección</label>
-                <input type="text" name="hotelDireccion" disabled id="hotelDireccion" class="form-control">
-              </div>
-            </form>
-          </div>
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <a href="editar" class="btn btn-primary">Editar</a>
-          </div>
-        </div>
-      </div>
     </div>
     <?php require_once('../footer.php'); ?>
     <div class="control-sidebar-bg"></div>
@@ -100,87 +59,19 @@ index();
   <script src="<?php echo URL; ?>dist/js/demo.js"></script>
   <script>
     $(document).ready(function() {
-
-      var tabla = $('#example').DataTable({
-        "ajax":{
-          "method":"POST",
-          "url":"<?php echo URL; ?>controlador/hotelEnlistar",
-        },
-        "columns":[
-        {"data":"id_hotel"},
-        {"data":"nombre_hotel"},
-        {"data":"direccion_hotel"},
-        {"data":"telefono_hotel"},
-        {"defaultContent":"<button class='btn btn-primary ver'>Ver</button><button class='btn btn-danger borrar'>Borrar</button>"}
-        ]
-      });
-
-      $('.dropdown-menu').click(function(e) {
-        e.stopPropagation();
-      });
-      $('.botonSalir').click(function() {
-        var ttk = $(this).attr("token");
-        var dataString = 'ttk='+ttk;
-        $.ajax({
+      //alert("F");
+      $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>controlador/logout",
-          data: dataString,
+          url: "<?php echo URL; ?>controlador/hotelEditar",
           beforeSend: function() {
-            alert('Datos serializados: '+dataString);
+            //alert("Enviando");
           },
           success: function(data) {
-            alert(data);
-            if(data == 'adios') {
-              window.location.href = "index";
-            } else {
-              alert(data);
-            }
-          }
-        });
-      });
-      $('#example tbody').on( 'click', '.ver', function () {
-        console.log('click');
-        var data = tabla.row( $(this).parents('tr') ).data();
-        //alert("ID: "+data[0]);
-        var id = data[0];
-        var dataString = 'id='+id;
-        $.ajax({
-          type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelVerDatos",
-          data: dataString,
-          dataType: "json",
-          beforeSend: function() {
-            //alert('Datos serializados: '+dataString);
-          },
-          success: function(data) {
-            $('#myModal').modal('show');
-            //var data = JSON.parse(data);
-            //var json=JSON.stringify(data);
-            //alert(json[2]);
+            console.log(data);
+            //alert("Recibiendo: "+data);
             $('#hotelNombre').val(data[0]["nombre_hotel"]);
-            $('#hotelDireccion').val(data[0]["direccion_hotel"]);
           }
         });
-      } );
-      $('#example tbody').on( 'click', '.borrar', function () {
-
-        var data = tabla.row( $(this).parents('tr') ).data();
-        //alert("ID: "+data[0]);
-        var id = data[0];
-        var dataString = 'id='+id;
-        $.ajax({
-          type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelEliminar",
-          data: dataString,
-          beforeSend: function() {
-            //alert('Datos serializados: '+dataString);
-          },
-          success: function(data) {
-            alert("Eliminado: "+data);
-
-          }
-        });
-      } );
     });
   </script>
 </body>

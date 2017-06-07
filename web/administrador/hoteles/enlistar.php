@@ -177,7 +177,7 @@ index();
           },
           success: function(data) {
             alert("Eliminado: "+data);
-
+            location.reload(true);
           }
         });
       } );

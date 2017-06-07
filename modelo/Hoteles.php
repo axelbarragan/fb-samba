@@ -13,6 +13,7 @@ class Hoteles extends Conexion {
   private $nombreCont;
   private $apellidoCont;
   private $id;
+  private $status;
   private $salt;
   private $pass;
 
@@ -65,46 +66,77 @@ class Hoteles extends Conexion {
     #Método para editar
   public function editar($id) {
     $this->id = $id;
-    $query = "SELECT * FROM hotel WHERE id_hotel = '".$this->id."'";
-    $res   = $this->mysqli->query($query);
+    $query = "SELECT * FROM hotel INNER JOIN usuarios ON hotel.id_hotel = usuarios.id_hotel INNER JOIN sesion ON hotel.correo_usuario = sesion.correo_usuario WHERE hotel.id_hotel = '".$this->id."'";
+    $res = $this->mysqli->query($query);
     if($res) {
       while ($row = $res->fetch_assoc()) {
-      $columns[] = $row;
+        $columns[] = $row;
+      }
+      header('Content-type: application/json; charset=utf-8');
+      echo json_encode($columns);
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
     }
-    header('Content-type: application/json; charset=utf-8');
-    echo json_encode($columns);
-  } else {
-    echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
   }
-}
+
+  public function editarStatus($id, $status) {
+    $this->id     = $id;
+    $this->status = $status;
+    $query = "UPDATE hotel SET status_hotel = '".$this->status."' WHERE id_hotel = '".$this->id."'";
+    $res   = $this->mysqli->query($query);
+    if($res) {
+      echo "BIEN";
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+    }
+  }
+
+  public function editarHotel($id, $nombre, $direccion, $telefono) {
+    $this->id        = $id;
+    $this->nombre    = $nombre;
+    $this->direccion = $direccion;
+    $this->telefono  = $telefono;
+    $query  = "UPDATE hotel SET ";
+    $query .= "nombre_hotel    = '".$this->nombre."', ";
+    $query .= "direccion_hotel = '".$this->direccion."', ";
+    $query .= "telefono_hotel  = '".$this->telefono."' ";
+    $query .= "WHERE id_hotel  = '".$this->id."'";
+    $res = $this->mysqli->query($query);
+    if($res) {
+      unset($_SESSION['idHotel']);
+      echo "Datos cambiados";
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+    }
+  }
 
     #Método para eliminar
-public function eliminar($id) {
-  $this->id  = $id;
-  $query     = "DELETE FROM hotel WHERE id_hotel = '".$this->id."'";
-  $resultado = $this->mysqli->query($query);
-  if($resultado) {
-    echo "Eliminado";
-  } else {
-    echo "No se pudo";
+  public function eliminar($id) {
+    $this->id  = $id;
+    $query     = "DELETE FROM hotel WHERE id_hotel = '".$this->id."'";
+    $resultado = $this->mysqli->query($query);
+    if($resultado) {
+      echo "Eliminado";
+    } else {
+      echo "No se pudo";
+    }
   }
-}
 
     #Método para ver datos
-public function ver($id) {
-  $this->id = $id;
-  $columns  = array();
-  session_start();
-  $_SESSION['idHotel'] = $this->id;
-  $query =  $query = "SELECT *  FROM hotel INNER JOIN habitaciones ON hotel.id_hotel = habitaciones.id_hotel WHERE hotel.id_hotel = '".$this->id."'";
-  $resultado = $this->mysqli->query($query);
-  if($resultado) {
-    while ($row = $resultado->fetch_assoc()) {
-      $columns[] = $row;
-    }
-    header('Content-type: application/json; charset=utf-8');
+  public function ver($id) {
+    $this->id = $id;
+    $columns  = array();
+    session_start();
+    $_SESSION['idHotel'] = $this->id;
+    $query =  $query = "SELECT *  FROM hotel INNER JOIN habitaciones ON hotel.id_hotel = habitaciones.id_hotel WHERE hotel.id_hotel = '".$this->id."'";
+    $resultado = $this->mysqli->query($query);
+    if($resultado) {
+      while ($row = $resultado->fetch_assoc()) {
+        $columns[] = $row;
+      }
+      header('Content-type: application/json; charset=utf-8');
       //var_dump($columns);
-    echo json_encode($columns);
+      echo json_encode($columns);
       /*switch(json_last_error()) {
         case JSON_ERROR_NONE:
         echo ' - Sin errores';
@@ -138,7 +170,7 @@ public function ver($id) {
     #Método para enlistar
   public function enlistar() {
       //Código para enlistar
-    $query     = "SELECT * FROM hotel";
+    $query     = "SELECT id_hotel, nombre_hotel, direccion_hotel, telefono_hotel FROM hotel";
     $resultado = $this->mysqli->query($query);
     while ($row = $resultado->fetch_array()) {
       $arreglo["data"][] = $row;

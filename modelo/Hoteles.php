@@ -91,7 +91,7 @@ class Hoteles extends Conexion {
     }
   }
 
-  public function editarHotel($id, $nombre, $direccion, $telefono) {
+  public function editarGeneral($id, $nombre, $direccion, $telefono) {
     $this->id        = $id;
     $this->nombre    = $nombre;
     $this->direccion = $direccion;

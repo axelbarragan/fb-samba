@@ -4,12 +4,12 @@
 
   /*Archivo de redirección*/
   switch ($_SESSION['nivel_usuario']) {
-  	case 'a':
+  	case 'Administrador':
   		#Administrador
   	  header('Location: web/administrador/index');
   		break;
 
-  	case 'b':
+  	case 'Usuario':
   		#Cliente
   	  header('Location: web/clientes/index');
   		break;

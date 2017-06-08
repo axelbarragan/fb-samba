@@ -79,6 +79,7 @@
             alert('Datos serializados: '+dataString);
           },
           success: function(data) {
+            console.log(data);
             alert("Recibiendo: "+data);
             if(data == 'oka') {
               window.location.href = "redireccion";

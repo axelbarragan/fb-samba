@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2017 a las 22:51:04
+-- Tiempo de generación: 08-06-2017 a las 23:10:18
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -53,44 +53,18 @@ CREATE TABLE `hotel` (
   `id_hotel` int(11) NOT NULL,
   `nombre_hotel` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `direccion_hotel` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono_hotel` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+  `telefono_hotel` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `correo_usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `status_hotel` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `hotel`
 --
 
-INSERT INTO `hotel` (`id_hotel`, `nombre_hotel`, `direccion_hotel`, `telefono_hotel`) VALUES
-(1, 'Hotel Yaocalli', 'pendiente', 'pendiente'),
-(2, 'Yaocalli', 'Pendiente', '123456789'),
-(3, 'Yaocalli', 'Pendiente', '123456789'),
-(4, 'Yaocalli', 'Pendiente', '123456789'),
-(5, 'Yaocalli', 'Pendiente', '123456789'),
-(6, '', '', ''),
-(7, 'El Quinto Sol', 'Pendiente', '5578941'),
-(27, 'Barragán', 'jojo', '1234'),
-(26, 'Barragán', 'jojo', '1234');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `nivel_usuario`
---
-
-CREATE TABLE `nivel_usuario` (
-  `id_nivel` int(11) NOT NULL,
-  `nivel` varchar(1) COLLATE utf8_spanish_ci NOT NULL,
-  `user` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `nivel_usuario`
---
-
-INSERT INTO `nivel_usuario` (`id_nivel`, `nivel`, `user`, `descripcion`) VALUES
-(1, 'a', 'Administrador', 'Puede administrar todo'),
-(2, 'b', 'Usuario', 'Es un usuario');
+INSERT INTO `hotel` (`id_hotel`, `nombre_hotel`, `direccion_hotel`, `telefono_hotel`, `correo_usuario`, `status_hotel`) VALUES
+(1, 'Hotel Yaocalli', 'San Martín', '55123456789', 'cliente@mail.com', 1),
+(0, 'Flubox', 'Pendiente', '5555555', 'axel@mail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -161,20 +135,20 @@ INSERT INTO `servicio_habitacion` (`id_servicio_hab`, `id_servicio`, `id_hab`) V
 
 CREATE TABLE `sesion` (
   `id_sesion` int(11) NOT NULL,
-  `id_nivel` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `nombre_usuario` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `pass_usuario` varchar(65) COLLATE utf8_spanish_ci NOT NULL
+  `correo_usuario` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `pass_usuario` varchar(65) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo_usuario` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `id_hotel` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sesion`
 --
 
-INSERT INTO `sesion` (`id_sesion`, `id_nivel`, `id_usuario`, `nombre_usuario`, `pass_usuario`) VALUES
-(1, 1, 1, 'axel@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb'),
-(2, 2, 2, 'cliente@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb'),
-(3, 2, 3, 'barragan@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb');
+INSERT INTO `sesion` (`id_sesion`, `id_usuario`, `correo_usuario`, `pass_usuario`, `tipo_usuario`, `id_hotel`) VALUES
+(1, 1, 'axel@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Administrador', 0),
+(2, 2, 'cliente@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 1);
 
 -- --------------------------------------------------------
 
@@ -186,17 +160,16 @@ CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `nombre_usuario` char(15) CHARACTER SET latin1 NOT NULL,
   `apellidos_usuario` char(30) CHARACTER SET latin1 NOT NULL,
-  `empresa` varchar(50) CHARACTER SET latin1 NOT NULL
+  `id_hotel` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `apellidos_usuario`, `empresa`) VALUES
-(1, 'Axel', 'Barragan', 'Flubox'),
-(2, 'Pancho', 'Jolote', ''),
-(3, 'Akzel', 'Barragán', '27');
+INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `apellidos_usuario`, `id_hotel`) VALUES
+(1, 'Axel', 'Barragan', 0),
+(2, 'Pancho', 'Jolote', 1);
 
 --
 -- Índices para tablas volcadas
@@ -213,12 +186,6 @@ ALTER TABLE `habitaciones`
 --
 ALTER TABLE `hotel`
   ADD PRIMARY KEY (`id_hotel`);
-
---
--- Indices de la tabla `nivel_usuario`
---
-ALTER TABLE `nivel_usuario`
-  ADD PRIMARY KEY (`id_nivel`);
 
 --
 -- Indices de la tabla `reservaciones`
@@ -263,12 +230,7 @@ ALTER TABLE `habitaciones`
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
---
--- AUTO_INCREMENT de la tabla `nivel_usuario`
---
-ALTER TABLE `nivel_usuario`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT de la tabla `reservaciones`
 --

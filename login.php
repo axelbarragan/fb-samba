@@ -1,7 +1,7 @@
 <?php
-  require_once('config/config.php');
-  require_once('verificador-login.php');
-  login();
+require_once('config/config.php');
+require_once('verificador-login.php');
+login();
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,6 +21,10 @@
   <link rel="stylesheet" href="<?php echo URL; ?>dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo URL; ?>plugins/iCheck/square/blue.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,6 +70,11 @@
   <script src="<?php echo URL; ?>bootstrap/js/bootstrap.min.js"></script>
   <!-- iCheck -->
   <script src="<?php echo URL; ?>plugins/iCheck/icheck.min.js"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.min.js.map"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
   <script>
     $(document).ready(function() {
       $('.enviarForm').click(function(e) {
@@ -79,10 +88,24 @@
             //alert('Datos serializados: '+dataString);
           },
           success: function(data) {
+            console.log(data);
             //alert("Recibiendo: "+data);
-            if(data == 'oka') {
-              window.location.href = "redireccion";
+            switch (data) {
+              case "oka":
+              window.location.href = "redireccion"
+              break;
+              case "noka":
+              swal({
+                title: '¡CUENTA SUSPENDIDA!',
+                text: 'Ponte en contacto con Flubox para obtener mas información.',
+                type: 'error',
+                confirmButtonText: 'Cool'
+              })
+              break;
             }
+            /*if(data == 'oka') {
+              window.location.href = "redireccion";
+            }*/
           }
         });
       });

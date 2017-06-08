@@ -71,7 +71,7 @@ index();
                         <label for="hotelTelefono">Teléfono del hotel</label>
                         <input type="text" name="hotelTelefono" id="hotelTelefono" class="form-control inputEditable">
                       </div>
-                      <button class="btn btn-primary inputEditable" id="enviarDatos">Guardar</button>
+                      <button class="btn btn-primary inputEditable" id="guardarGeneralHotel">Guardar</button>
                     </form>
                   </div>
                 </div>
@@ -193,7 +193,7 @@ index();
         var dataString = 'hotelStatus='+nuevoStatus;
         $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelCambioStatus",
+          url: "<?php echo URL; ?>controlador/hotelEditarStatus",
           data: dataString,
           beforeSend: function() {
             //alert('Datos serializados: '+dataString);
@@ -205,12 +205,12 @@ index();
         });
       });
 
-      $('#enviarDatos').click(function(e) {
+      $('#guardarGeneralHotel').click(function(e) {
         e.preventDefault();
         var dataString = $('#formModificarHotel').serialize();
         $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelGuardarCambios",
+          url: "<?php echo URL; ?>controlador/hotelEditarGeneral",
           data: dataString,
           beforeSend: function() {
             //alert('Datos serializados: '+dataString);

@@ -6,6 +6,7 @@
       </div>
       <div class="pull-left info">
         <p><?php echo $_SESSION['nombre_usuario']; ?></p>
+        <small><?php echo $_SESSION['nombre_empresa']; ?></small>
       </div>
     </div>
     <ul class="sidebar-menu">

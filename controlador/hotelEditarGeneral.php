@@ -10,7 +10,7 @@
 
   $wish = new Hoteles;
   //$wish->cerrarSesion();
-  $wish->editarHotel($id, $nombre, $direccion, $telefono);
+  $wish->editarGeneral($id, $nombre, $direccion, $telefono);
   $wish->cerrar();
 
 ?>

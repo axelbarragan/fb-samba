@@ -18,8 +18,8 @@
                 <img src="<?php echo URL; ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $_SESSION['nombre_usuario']." - ".$_SESSION['alias_usuario'];  ?>
-                  <small><?php echo $_SESSION['empresa_usuario']; ?></small>
+                  <?php echo $_SESSION['nombre_usuario']." - ".$_SESSION['nivel_usuario'];  ?>
+                  <small><?php echo $_SESSION['nombre_empresa']; ?></small>
                 </p>
               </li>
               <li class="user-body">

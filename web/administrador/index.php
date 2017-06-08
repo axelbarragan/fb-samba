@@ -109,10 +109,11 @@ index();
   <script src="<?php echo URL; ?>dist/js/demo.js"></script>
   <script>
     $(document).ready(function() {
+      
       $.ajax({
-          type: "POST",
-          url: "<?php echo URL; ?>controlador/cuantosHoteles",
-          beforeSend: function() {
+        type: "POST",
+        url: "<?php echo URL; ?>controlador/cuantosHoteles",
+        beforeSend: function() {
             //alert('Datos serializados: ');
           },
           success: function(data) {
@@ -122,6 +123,27 @@ index();
             $('.cuantasHabitaciones').html(json.cuantasHabitaciones);
           }
         });
+
+      $('.botonSalir').click(function() {
+        var ttk = $(this).attr("token");
+        var dataString = 'ttk='+ttk;
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>controlador/logout",
+          data: dataString,
+          beforeSend: function() {
+            alert('Datos serializados: '+dataString);
+          },
+          success: function(data) {
+            alert(data);
+            if(data == 'adios') {
+              window.location.href = "<?php echo URL; ?>login";
+            } else {
+              alert(data);
+            }
+          }
+        });
+      });
 
       
     });

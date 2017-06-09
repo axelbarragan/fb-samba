@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-06-2017 a las 23:10:18
+-- Tiempo de generación: 09-06-2017 a las 02:51:32
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -63,7 +63,7 @@ CREATE TABLE `hotel` (
 --
 
 INSERT INTO `hotel` (`id_hotel`, `nombre_hotel`, `direccion_hotel`, `telefono_hotel`, `correo_usuario`, `status_hotel`) VALUES
-(1, 'Hotel Yaocalli', 'San Martín', '55123456789', 'cliente@mail.com', 1),
+(1, 'Hotel Yaocalli', 'San Martín', '5512345678', 'cliente@mail.com', 1),
 (0, 'Flubox', 'Pendiente', '5555555', 'axel@mail.com', 1);
 
 -- --------------------------------------------------------
@@ -169,7 +169,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `apellidos_usuario`, `id_hotel`) VALUES
 (1, 'Axel', 'Barragan', 0),
-(2, 'Pancho', 'Jolote', 1);
+(2, 'Pedro', 'Jolote', 1);
 
 --
 -- Índices para tablas volcadas

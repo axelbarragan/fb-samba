@@ -69,8 +69,8 @@ index();
                 <input type="text" name="hotelNombre" disabled id="hotelNombre" class="form-control">
               </div>
               <div class="form-group">
-                <label for="hotelDireccion">Dirección</label>
-                <input type="text" name="hotelDireccion" disabled id="hotelDireccion" class="form-control">
+                <label for="hotelStatus">Status</label>
+                <input type="text" name="hotelStatus" disabled id="hotelStatus" class="form-control">
               </div>
             </form>
           </div>
@@ -153,12 +153,13 @@ index();
             //alert('Datos serializados: '+dataString);
           },
           success: function(data) {
+            console.log(data);
             $('#myModal').modal('show');
             //var data = JSON.parse(data);
             //var json=JSON.stringify(data);
             //alert(json[2]);
             $('#hotelNombre').val(data[0]["nombre_hotel"]);
-            $('#hotelDireccion').val(data[0]["direccion_hotel"]);
+            $('#hotelStatus').val(data[0]["status_hotel"]);
           }
         });
       } );

@@ -58,7 +58,7 @@ index();
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                   <div class="panel-body">
-                    <form class="" method="POST" id="formModificarHotel">
+                    <form class="" method="POST" id="formModificarGeneral">
                       <div class="form-group">
                         <label for="hotelNombre">Nombre del hotel</label>
                         <input type="text" name="hotelNombre" id="hotelNombre" class="form-control inputEditable">
@@ -86,7 +86,7 @@ index();
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                   <div class="panel-body">
-                    <form class="" method="POST" id="formModificarHotel">
+                    <form class="" method="POST" id="formModificarUsuario">
                       <div class="form-group">
                         <label for="usuarioNombre">Nombre del usuario</label>
                         <input type="text" name="usuarioNombre" id="usuarioNombre" class="form-control inputEditable">
@@ -95,7 +95,7 @@ index();
                         <label for="usuarioApellidos">Apellidos del usuario</label>
                         <input type="text" name="usuarioApellidos" id="usuarioApellidos" class="form-control inputEditable">
                       </div>
-                      <button class="btn btn-primary inputEditable" id="enviarDatos">Guardar</button>
+                      <button class="btn btn-primary inputEditable" id="guardarUsuarioHotel">Guardar</button>
                     </form>
                   </div>
                 </div>
@@ -110,7 +110,7 @@ index();
                 </div>
                 <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                   <div class="panel-body">
-                    <form class="" method="POST" id="formModificarHotel">
+                    <form class="" method="POST" id="formModificarSesion">
                       <div class="form-group">
                         <label for="correoUsuario">Correo de usuario</label>
                         <input type="text" name="correoUsuario" id="correoUsuario" class="form-control inputEditable">
@@ -119,7 +119,7 @@ index();
                         <label for="usuarioApellidos">Apellidos del usuario</label>
                         <input type="text" name="usuarioApellidos" id="usuarioApellidos" class="form-control inputEditable">
                       </div>-->
-                      <button class="btn btn-primary inputEditable" id="enviarDatos">Guardar</button>
+                      <button class="btn btn-primary inputEditable" id="guardarSesionHotel">Guardar</button>
                     </form>
                   </div>
                 </div>
@@ -207,7 +207,7 @@ index();
 
       $('#guardarGeneralHotel').click(function(e) {
         e.preventDefault();
-        var dataString = $('#formModificarHotel').serialize();
+        var dataString = $('#formModificarGeneral').serialize();
         $.ajax({
           type: "POST",
           url: "<?php echo URL; ?>controlador/hotelEditarGeneral",
@@ -224,6 +224,47 @@ index();
           }
         });
       });
+
+      $('#guardarUsuarioHotel').click(function(e) {
+        e.preventDefault();
+        var dataString = $('#formModificarUsuario').serialize();
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>controlador/hotelEditarUsuario",
+          data: dataString,
+          beforeSend: function() {
+            alert('Datos serializados: '+dataString);
+          },
+          success: function(data) {
+            alert(data);
+            window.location.href = "enlistar";
+          },
+          error: function(dataError) {
+            alert(dataError);
+          }
+        });
+      }); guardarSesionHotel
+
+      $('#guardarSesionHotel').click(function(e) {
+        e.preventDefault();
+        var dataString = $('#formModificarSesion').serialize();
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>controlador/hotelEditarSesion",
+          data: dataString,
+          beforeSend: function() {
+            alert('Datos serializados: '+dataString);
+          },
+          success: function(data) {
+            alert(data);
+            window.location.href = "enlistar";
+          },
+          error: function(dataError) {
+            alert(dataError);
+          }
+        });
+      });
+
     });
   </script>
 </body>

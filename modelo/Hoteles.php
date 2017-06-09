@@ -110,6 +110,44 @@ class Hoteles extends Conexion {
     }
   }
 
+  public function editarUsuario($id, $usuarioNombre, $usuarioApellido) {
+    $this->id           = $id;
+    $this->nombreCont   = $usuarioNombre;
+    $this->apellidoCont = $usuarioApellido;
+    $query  = "UPDATE usuarios SET ";
+    $query .= "nombre_usuario    = '".$this->nombreCont."', ";
+    $query .= "apellidos_usuario = '".$this->apellidoCont."' ";
+    $query .= "WHERE id_hotel    = '".$this->id."'";
+    $res = $this->mysqli->query($query);
+    if($res) {
+      echo "Datos cambiados";
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+    }
+  }
+
+  public function editarSesion($id, $correoUsuario) {
+    $this->id    = $id;
+    $this->email = $correoUsuario;
+    $query  = "UPDATE sesion SET ";
+    $query .= "correo_usuario = '".$this->email."' ";
+    $query .= "WHERE id_hotel    = '".$this->id."'";
+    $res = $this->mysqli->query($query);
+    if($res) {
+      $query  = "UPDATE hotel SET ";
+      $query .= "correo_usuario = '".$this->email."' ";
+      $query .= "WHERE id_hotel    = '".$this->id."'";
+      $res = $this->mysqli->query($query);
+      if($res) {
+        echo "Datos cambiados";
+      } else {
+        echo "2 cambio no";
+      }
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+    }
+  }
+
     #Método para eliminar
   public function eliminar($id) {
     $this->id  = $id;

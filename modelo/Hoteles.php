@@ -2,6 +2,7 @@
 
 include_once('../conexion/conn.php');
 include_once('../config/config.php');
+include_once('modeloPrueba.php');
 
 class Hoteles extends Conexion {
     //Atributos a usar
@@ -27,7 +28,7 @@ class Hoteles extends Conexion {
     $pattern = '1234567890';
     $max = strlen($pattern)-1;
     for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
-    $this->pass = $key;
+      $this->pass = $key;
   }
 
     #Método para cerrar la conexion
@@ -239,5 +240,14 @@ class Hoteles extends Conexion {
       
     }
   }
+
+  public function ajam() {
+    $ver = CodigoTuring::encrypt("Apple");
+    echo $ver;
+  }
+
 }
+
+$obj = new Hoteles;
+  echo $obj->ajam();
 ?>

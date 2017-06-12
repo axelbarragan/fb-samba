@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2017 a las 02:51:32
+-- Tiempo de generación: 12-06-2017 a las 22:58:34
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -64,7 +64,8 @@ CREATE TABLE `hotel` (
 
 INSERT INTO `hotel` (`id_hotel`, `nombre_hotel`, `direccion_hotel`, `telefono_hotel`, `correo_usuario`, `status_hotel`) VALUES
 (1, 'Hotel Yaocalli', 'San Martín', '5512345678', 'cliente@mail.com', 1),
-(0, 'Flubox', 'Pendiente', '5555555', 'axel@mail.com', 1);
+(0, 'Flubox', 'Pendiente', '5555555', 'axel@mail.com', 1),
+(29, 'Hotel Yaocalli', 'Pendiente', '12345678', 'hola@hotelyaocalli.com.mx', 1);
 
 -- --------------------------------------------------------
 
@@ -96,17 +97,16 @@ INSERT INTO `reservaciones` (`id_reservacion`, `id_hab`, `fechaEntrada`, `fechaS
 
 CREATE TABLE `servicios_habitaciones` (
   `id_servicio` int(11) NOT NULL,
-  `nombre_servicio` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `precio_servicio` int(5) NOT NULL
+  `nombre_servicio` varchar(30) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `servicios_habitaciones`
 --
 
-INSERT INTO `servicios_habitaciones` (`id_servicio`, `nombre_servicio`, `precio_servicio`) VALUES
-(1, 'Agua caliente', 0),
-(2, 'Desayuno Continental', 0);
+INSERT INTO `servicios_habitaciones` (`id_servicio`, `nombre_servicio`) VALUES
+(1, 'Agua caliente'),
+(2, 'Desayuno Continental');
 
 -- --------------------------------------------------------
 
@@ -117,15 +117,16 @@ INSERT INTO `servicios_habitaciones` (`id_servicio`, `nombre_servicio`, `precio_
 CREATE TABLE `servicio_habitacion` (
   `id_servicio_hab` int(11) NOT NULL,
   `id_servicio` int(11) NOT NULL,
-  `id_hab` int(11) NOT NULL
+  `id_hab` int(11) NOT NULL,
+  `precio_hab` varchar(8) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `servicio_habitacion`
 --
 
-INSERT INTO `servicio_habitacion` (`id_servicio_hab`, `id_servicio`, `id_hab`) VALUES
-(1, 1, 1);
+INSERT INTO `servicio_habitacion` (`id_servicio_hab`, `id_servicio`, `id_hab`, `precio_hab`) VALUES
+(1, 1, 1, '800');
 
 -- --------------------------------------------------------
 
@@ -148,7 +149,33 @@ CREATE TABLE `sesion` (
 
 INSERT INTO `sesion` (`id_sesion`, `id_usuario`, `correo_usuario`, `pass_usuario`, `tipo_usuario`, `id_hotel`) VALUES
 (1, 1, 'axel@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Administrador', 0),
-(2, 2, 'cliente@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 1);
+(2, 2, 'cliente@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 1),
+(4, 4, 'hola@hotelyaocalli.com.mx', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 29);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_registrohotel`
+--
+
+CREATE TABLE `t_registrohotel` (
+  `id_registro` int(11) NOT NULL,
+  `id_hotel` int(11) NOT NULL,
+  `fecha` int(11) NOT NULL,
+  `hora` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_salt`
+--
+
+CREATE TABLE `t_salt` (
+  `id_salt` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `salt` varchar(15) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -169,7 +196,8 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `apellidos_usuario`, `id_hotel`) VALUES
 (1, 'Axel', 'Barragan', 0),
-(2, 'Pedro', 'Jolote', 1);
+(2, 'Pancho', 'Jolote', 1),
+(4, 'Jorge', 'Gómez', 29);
 
 --
 -- Índices para tablas volcadas
@@ -212,6 +240,18 @@ ALTER TABLE `sesion`
   ADD PRIMARY KEY (`id_sesion`);
 
 --
+-- Indices de la tabla `t_registrohotel`
+--
+ALTER TABLE `t_registrohotel`
+  ADD PRIMARY KEY (`id_registro`);
+
+--
+-- Indices de la tabla `t_salt`
+--
+ALTER TABLE `t_salt`
+  ADD PRIMARY KEY (`id_salt`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -230,7 +270,7 @@ ALTER TABLE `habitaciones`
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de la tabla `reservaciones`
 --
@@ -250,12 +290,22 @@ ALTER TABLE `servicio_habitacion`
 -- AUTO_INCREMENT de la tabla `sesion`
 --
 ALTER TABLE `sesion`
-  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `t_registrohotel`
+--
+ALTER TABLE `t_registrohotel`
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `t_salt`
+--
+ALTER TABLE `t_salt`
+  MODIFY `id_salt` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

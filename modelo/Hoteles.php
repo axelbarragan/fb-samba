@@ -21,6 +21,13 @@ class Hoteles extends Conexion {
   public function __construct() {
     $this->db     = Conexion::getInstance();
     $this->mysqli = $this->db->getConnection();
+    /*---*/
+    $key = '';
+    $longitud = "8";
+    $pattern = '1234567890';
+    $max = strlen($pattern)-1;
+    for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
+    $this->pass = $key;
   }
 
     #Método para cerrar la conexion
@@ -36,19 +43,19 @@ class Hoteles extends Conexion {
     $this->email      = $email;
     $this->nombreCont = $nombreCont;
     $this->apellidoCont = $apellidoCont;
-    $this->pass      = "1234";
+    $this->status = 1;
     $this->salt      = SALT;
     $this->pass = hash_hmac("sha256", $this->pass, $this->salt);
 
-    $query     = "INSERT INTO hotel VALUES (null,'$this->nombre','$this->direccion','$this->telefono')";
+    $query     = "INSERT INTO hotel VALUES (null,'$this->nombre','$this->direccion','$this->telefono','$this->email','$this->status')";
     $resultado = $this->mysqli->query($query);
     if($resultado) {
-      $last_id = $this->mysqli->insert_id;
-      $query   = "INSERT INTO usuarios VALUES (null,'$this->nombreCont','$this->apellidoCont','$this->nombre')"; 
+      $id_hotel = $this->mysqli->insert_id;
+      $query   = "INSERT INTO usuarios VALUES (null,'$this->nombreCont','$this->apellidoCont','$id_hotel')"; 
       $res     = $this->mysqli->query($query);
       if($res) {
-        $last_id = $this->mysqli->insert_id;
-        $query   = "INSERT INTO sesion VALUES (null,'2','$last_id','$this->email','$this->pass')";
+        $id_usuario = $this->mysqli->insert_id;
+        $query   = "INSERT INTO sesion VALUES (null,'$id_usuario','$this->email','$this->pass','Usuario','$id_hotel')";
         $res     = $this->mysqli->query($query);
         if($res) {
           echo "REGISTRO COMPLETO";
@@ -59,7 +66,7 @@ class Hoteles extends Conexion {
         echo "Error usuarios: ".$this->mysqli->connect_errno;
       }
     } else {
-      echo "MAL";
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
     }
   }
 

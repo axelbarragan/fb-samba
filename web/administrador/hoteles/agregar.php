@@ -57,8 +57,7 @@ index();
                 <label for="apellidosContacto">Apellidos del titular del hotel</label>
                 <input type="text" name="apellidosContacto" class="form-control" id="apellidosContacto">
               </div>
-              <hr>
-              <button class="btn btn-primary enviarDatos">Enviar</button>
+              <button class="btn btn-primary enviarDatos">Guardar</button>
             </form>
           </div>
         </div>
@@ -94,7 +93,7 @@ index();
         var dataString = $('#formNuevoHotel').serialize();
         $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelGuardarUno",
+          url: "<?php echo URL; ?>controlador/hotelGuardar",
           data: dataString,
           beforeSend: function() {
             alert('Datos serializados: '+dataString);

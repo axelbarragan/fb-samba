@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2017 a las 22:58:34
+-- Tiempo de generación: 13-06-2017 a las 22:56:03
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -41,7 +41,8 @@ CREATE TABLE `habitaciones` (
 --
 
 INSERT INTO `habitaciones` (`id_hab`, `id_hotel`, `titulo_habitacion`, `descripcion_habitacion`, `cantidad_habitacion`, `precio_hab`, `status_hab`) VALUES
-(1, 1, 'Habitación Sencilla', 'Esta es una habitación sencilla', 8, 800, 1);
+(1, 1, 'Habitación Sencilla', 'Esta es una habitación sencilla', 8, 800, 1),
+(2, 1, 'Habitación Doble', 'Esta es una habitación para 4 personas', 5, 1200, 1);
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,8 @@ CREATE TABLE `servicios_habitaciones` (
 
 INSERT INTO `servicios_habitaciones` (`id_servicio`, `nombre_servicio`) VALUES
 (1, 'Agua caliente'),
-(2, 'Desayuno Continental');
+(2, 'Desayuno Continental'),
+(3, 'TV con cable');
 
 -- --------------------------------------------------------
 
@@ -118,15 +120,16 @@ CREATE TABLE `servicio_habitacion` (
   `id_servicio_hab` int(11) NOT NULL,
   `id_servicio` int(11) NOT NULL,
   `id_hab` int(11) NOT NULL,
-  `precio_hab` varchar(8) COLLATE utf8_spanish_ci NOT NULL
+  `precio_serv` varchar(8) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `servicio_habitacion`
 --
 
-INSERT INTO `servicio_habitacion` (`id_servicio_hab`, `id_servicio`, `id_hab`, `precio_hab`) VALUES
-(1, 1, 1, '800');
+INSERT INTO `servicio_habitacion` (`id_servicio_hab`, `id_servicio`, `id_hab`, `precio_serv`) VALUES
+(1, 1, 1, '800'),
+(2, 2, 1, '100');
 
 -- --------------------------------------------------------
 
@@ -265,7 +268,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `habitaciones`
 --
 ALTER TABLE `habitaciones`
-  MODIFY `id_hab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_hab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `hotel`
 --
@@ -280,12 +283,12 @@ ALTER TABLE `reservaciones`
 -- AUTO_INCREMENT de la tabla `servicios_habitaciones`
 --
 ALTER TABLE `servicios_habitaciones`
-  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `servicio_habitacion`
 --
 ALTER TABLE `servicio_habitacion`
-  MODIFY `id_servicio_hab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_servicio_hab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `sesion`
 --

@@ -37,7 +37,7 @@ index();
                 <tr>
                   <th>ID</th>
                   <th>NOMBRE</th>
-                  <th>DIRECCIÓN</th>
+                  <th>DESCRIPCIÓN</th>
                   <th>ACCION</th>
                 </tr>
 
@@ -61,23 +61,24 @@ index();
             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
           </div>
           <div class="modal-body">
-          <div class="col-lg-12">
-            <form>
-              <div class="form-group">
-                <label for="hotelNombre">Nombre</label>
-                <input type="text" name="hotelNombre" disabled id="hotelNombre" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="hotelStatus">Status</label>
-                <input type="text" name="hotelStatus" disabled id="hotelStatus" class="form-control">
-              </div>
-            </form>
-          </div>
+            <div class="col-lg-12">
+              <form>
+                <div class="form-group">
+                  <label for="hotelNombre">Nombre</label>
+                  <input type="text" name="hotelNombre" disabled id="hotelNombre" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="hotelStatus">Status</label>
+                  <input type="text" name="hotelStatus" disabled id="hotelStatus" class="form-control">
+                </div>
+              </form>
+            </div>
             
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <a href="editar" class="btn btn-primary">Editar</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <a href="editarServicios" class="btn btn-primary">Editar servicios</a>
+            <a href="editar" class="btn btn-primary">Editar habitacion</a>
           </div>
         </div>
       </div>
@@ -108,7 +109,7 @@ index();
         "columns":[
         {"data":"id_hab"},
         {"data":"titulo_habitacion"},
-        {"data":"cantidad_habitacion"},
+        {"data":"descripcion_habitacion"},
         {"defaultContent":"<button class='btn btn-primary ver'>Ver</button><button class='btn btn-danger borrar'>Borrar</button>"}
         ]
       });
@@ -142,6 +143,7 @@ index();
         //alert("ID: "+data[0]);
         var id = data[0];
         var dataString = 'id='+id;
+        alert(dataString);
         $.ajax({
           type: "POST",
           url: "<?php echo URL; ?>controlador/habitacionVerDatos",
@@ -157,7 +159,11 @@ index();
             //var json=JSON.stringify(data);
             //alert(json[2]);
             $('#hotelNombre').val(data[0]["titulo_habitacion"]);
-            $('#hotelStatus').val(data[0]["status_hab"]);
+            if(data[0]["status_hab"] == 1) {
+              $('#hotelStatus').val("ACTIVADA");
+            } else {
+              $('#hotelStatus').val("DESACTIVADA");
+            }
           }
         });
       } );

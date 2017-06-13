@@ -8,7 +8,7 @@
   $idHab = $_SESSION['idHab'];
 
   $wish = new Habitaciones;
-  $wish->enlistarServicios($idHab);
+  $wish->editar($idHab);
   //$wish->cerrar();
 
 ?>

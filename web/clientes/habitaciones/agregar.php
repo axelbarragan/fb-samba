@@ -32,22 +32,22 @@ index();
         <!-- Info boxes -->
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <form id="formNuevoHotel" action="#" method="post">
+            <form id="formNuevaHab" action="#" method="post">
               <div class="form-group">
-                <label for="nombre">Titulo de la habitación</label>
-                <input type="text" name="nombre" class="form-control" id="nombre">
+                <label for="habTitulo">Titulo de la habitación</label>
+                <input type="text" name="habTitulo" class="form-control" id="habTitulo">
               </div>
               <div class="form-group">
-                <label for="direccion">Descripción de la habitación</label>
-                <input type="text" name="direccion" class="form-control" id="direccion">
+                <label for="habDesc">Descripción de la habitación</label>
+                <input type="text" name="habDesc" class="form-control" id="habDesc">
               </div>
               <div class="form-group">
-                <label for="telefono">Cantidad de habitaciones</label>
-                <input type="text" name="telefono" class="form-control" id="telefono">
+                <label for="habCantidad">Cantidad de habitaciones</label>
+                <input type="text" name="habCantidad" class="form-control" id="habCantidad">
               </div>
               <div class="form-group">
-                <label for="email">Precio por habitación</label>
-                <input type="email" name="email" class="form-control" id="email">
+                <label for="habPrecio">Precio por habitación</label>
+                <input type="text" name="habPrecio" class="form-control" id="habPrecio">
               </div>
               <hr>
               <button class="btn btn-primary enviarDatos">Enviar</button>
@@ -83,10 +83,10 @@ index();
       });
       $('.enviarDatos').click(function(e) {
         e.preventDefault();
-        var dataString = $('#formNuevoHotel').serialize();
+        var dataString = $('#formNuevaHab').serialize();
         $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelGuardarUno",
+          url: "<?php echo URL; ?>controlador/habitacionRegistrar",
           data: dataString,
           beforeSend: function() {
             alert('Datos serializados: '+dataString);

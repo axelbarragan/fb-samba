@@ -18,7 +18,7 @@ index();
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Hotel <?php echo $_SESSION['empresa_usuario']; ?>
+          Hotel <?php echo $_SESSION['nombre_empresa']; ?>
           <small></small>
         </h1>
         <ol class="breadcrumb">
@@ -33,11 +33,11 @@ index();
         <div class="row">
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-              <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+              <span class="info-box-icon bg-aqua"><i class="fa fa-hotel"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">CPU Traffic</span>
-                <span class="info-box-number">90<small>%</small></span>
+                <span class="info-box-text">HABITACIONES</span>
+                <span class="info-box-number cuantasHabitaciones"></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -112,6 +112,20 @@ index();
       $('.dropdown-menu').click(function(e) {
         e.stopPropagation();
       });
+
+      $.ajax({
+        type: "POST",
+        url: "<?php echo URL; ?>controlador/cuantasHabitaciones",
+        beforeSend: function() {
+            //alert('Datos serializados: ');
+          },
+          success: function(data) {
+            //alert(data);
+            var json=$.parseJSON(data);
+            $('.cuantasHabitaciones').html(json.cuantasHabitaciones);
+          }
+        });
+
       $('.botonSalir').click(function() {
         var ttk = $(this).attr("token");
         var dataString = 'ttk='+ttk;

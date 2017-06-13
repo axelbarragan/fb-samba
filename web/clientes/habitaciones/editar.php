@@ -37,14 +37,14 @@ index();
                 <div class="panel-heading" role="tab" id="headingOne">
                   <h4 class="panel-title">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Status del hotel
+                      Status de la habitación
                     </a>
                   </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                     <input type="checkbox" id="toggle-two" data-onstyle="success" data-offstyle="danger">
-                    <button class="btn btn-primary" id="guardarStatusHotel">Guardar</button>
+                    <button class="btn btn-primary" id="guardarStatusHab">Guardar</button>
                   </div>
                 </div>
               </div>
@@ -52,74 +52,30 @@ index();
                 <div class="panel-heading" role="tab" id="headingTwo">
                   <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Datos generales del hotel
+                      Datos generales de la habitación
                     </a>
                   </h4>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                   <div class="panel-body">
-                    <form class="" method="POST" id="formModificarGeneral">
+                    <form class="" method="POST" id="formModificarHab">
                       <div class="form-group">
-                        <label for="hotelNombre">Nombre del hotel</label>
-                        <input type="text" name="hotelNombre" id="hotelNombre" class="form-control inputEditable">
+                        <label for="habitacionNombre">Nombre de la habitación</label>
+                        <input type="text" name="habitacionNombre" id="habitacionNombre" class="form-control inputEditable">
                       </div>
                       <div class="form-group">
-                        <label for="hotelDireccion">Dirección del hotel</label>
-                        <input type="text" name="hotelDireccion" id="hotelDireccion" class="form-control inputEditable">
+                        <label for="habitacionDescrip">Descripción</label>
+                        <input type="text" name="habitacionDescrip" id="habitacionDescrip" class="form-control inputEditable">
                       </div>
                       <div class="form-group">
-                        <label for="hotelTelefono">Teléfono del hotel</label>
-                        <input type="text" name="hotelTelefono" id="hotelTelefono" class="form-control inputEditable">
-                      </div>
-                      <button class="btn btn-primary inputEditable" id="guardarGeneralHotel">Guardar</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
-                      Datos de usuario
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                  <div class="panel-body">
-                    <form class="" method="POST" id="formModificarUsuario">
-                      <div class="form-group">
-                        <label for="usuarioNombre">Nombre del usuario</label>
-                        <input type="text" name="usuarioNombre" id="usuarioNombre" class="form-control inputEditable">
+                        <label for="habitacionCantidad">Cantidad de habitaciones</label>
+                        <input type="text" name="habitacionCantidad" id="habitacionCantidad" class="form-control inputEditable">
                       </div>
                       <div class="form-group">
-                        <label for="usuarioApellidos">Apellidos del usuario</label>
-                        <input type="text" name="usuarioApellidos" id="usuarioApellidos" class="form-control inputEditable">
+                        <label for="habitacionPrecio">Precio</label>
+                        <input type="text" name="habitacionPrecio" id="habitacionPrecio" class="form-control inputEditable">
                       </div>
-                      <button class="btn btn-primary inputEditable" id="guardarUsuarioHotel">Guardar</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingFour">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
-                      Datos de sesión
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                  <div class="panel-body">
-                    <form class="" method="POST" id="formModificarSesion">
-                      <div class="form-group">
-                        <label for="correoUsuario">Correo de usuario</label>
-                        <input type="text" name="correoUsuario" id="correoUsuario" class="form-control inputEditable">
-                      </div>
-                      <!-- <div class="form-group">
-                        <label for="usuarioApellidos">Apellidos del usuario</label>
-                        <input type="text" name="usuarioApellidos" id="usuarioApellidos" class="form-control inputEditable">
-                      </div>-->
-                      <button class="btn btn-primary inputEditable" id="guardarSesionHotel">Guardar</button>
+                      <button class="btn btn-primary inputEditable" id="guardarModificarHab">Guardar</button>
                     </form>
                   </div>
                 </div>
@@ -159,55 +115,55 @@ index();
 
       $.ajax({
         type: "POST",
-        url: "<?php echo URL; ?>controlador/habitacionEditar",
+        url: "<?php echo URL; ?>controlador/habitacionMostrarDatos",
         beforeSend: function() {
             //alert("Enviando");
           },
           success: function(data) {
             console.log(data);
             //alert("Recibiendo: "+data);
-            var status = data[0]["status_hotel"];
+            var status = data[0]["status_hab"];
             if(status == 1) {
               $('#toggle-two').bootstrapToggle('on');
             } else {
               $('#toggle-two').bootstrapToggle('off');
               $('.inputEditable').attr('disabled','disabled');
             }            
-            $('#tituloHotel').html(data[0]["nombre_hotel"]);
-            $('#hotelNombre').val(data[0]["nombre_hotel"]);
-            $('#hotelDireccion').val(data[0]["direccion_hotel"]);
-            $('#hotelTelefono').val(data[0]["telefono_hotel"]);
-            $('#usuarioNombre').val(data[0]["nombre_usuario"]);
-            $('#usuarioApellidos').val(data[0]["apellidos_usuario"]);
-            $('#correoUsuario').val(data[0]["correo_usuario"]);
+            $('#habitacionNombre').val(data[0]["titulo_habitacion"]);
+            $('#habitacionDescrip').val(data[0]["descripcion_habitacion"]);
+            $('#habitacionCantidad').val(data[0]["cantidad_habitacion"]);
+            $('#habitacionPrecio').val(data[0]["precio_hab"]);
+          },
+          error: function(dataError) {
+            console.log(dataError.responseText);
           }
         });
 
-      $('#guardarStatusHotel').click(function() {
+      $('#guardarStatusHab').click(function() {
         var status = $('#toggle-two').prop('checked');
         if(status == true) {
           var nuevoStatus = 1;
         } else {
           var nuevoStatus = 0;
         }
-        var dataString = 'hotelStatus='+nuevoStatus;
+        var dataString = 'habStatus='+nuevoStatus;
         $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelEditarStatus",
+          url: "<?php echo URL; ?>controlador/habitacionEditarStatus",
           data: dataString,
           beforeSend: function() {
-            //alert('Datos serializados: '+dataString);
+            alert('Datos serializados: '+dataString);
           },
           success: function(data) {
-            //alert(data);
+            alert(data);
             window.location.reload(true);
           }
         });
       });
 
-      $('#guardarGeneralHotel').click(function(e) {
+      $('#guardarModificarHab').click(function(e) {
         e.preventDefault();
-        var dataString = $('#formModificarGeneral').serialize();
+        var dataString = $('#formModificarHab').serialize();
         $.ajax({
           type: "POST",
           url: "<?php echo URL; ?>controlador/hotelEditarGeneral",
@@ -225,45 +181,6 @@ index();
         });
       });
 
-      $('#guardarUsuarioHotel').click(function(e) {
-        e.preventDefault();
-        var dataString = $('#formModificarUsuario').serialize();
-        $.ajax({
-          type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelEditarUsuario",
-          data: dataString,
-          beforeSend: function() {
-            alert('Datos serializados: '+dataString);
-          },
-          success: function(data) {
-            alert(data);
-            window.location.href = "enlistar";
-          },
-          error: function(dataError) {
-            alert(dataError);
-          }
-        });
-      }); guardarSesionHotel
-
-      $('#guardarSesionHotel').click(function(e) {
-        e.preventDefault();
-        var dataString = $('#formModificarSesion').serialize();
-        $.ajax({
-          type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelEditarSesion",
-          data: dataString,
-          beforeSend: function() {
-            alert('Datos serializados: '+dataString);
-          },
-          success: function(data) {
-            alert(data);
-            window.location.href = "enlistar";
-          },
-          error: function(dataError) {
-            alert(dataError);
-          }
-        });
-      });
 
     });
   </script>

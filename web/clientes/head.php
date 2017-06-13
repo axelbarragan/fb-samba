@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="<?php echo URL; ?>dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="<?php echo URL; ?>dist/css/skins/_all-skins.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -6,10 +6,12 @@ include_once('../config/config.php');
 class Habitaciones extends Conexion {
     //Atributos a usar
   private $mysqli;
-  private $nombre;
-  private $direccion;
-  private $telefono;
+  private $titulo;
+  private $descrip;
+  private $cantidad;
+  private $precio;
   private $id;
+  private $status;
 
     #Método constructor
   public function __construct() {
@@ -23,15 +25,27 @@ class Habitaciones extends Conexion {
   }
 
     #Método para verificar datos
-  public function registrar($nombre, $direccion, $telefono) {
-
+  public function registrar($titulo,$desc,$cantidad,$precio,$idHotel) {
+    $this->titulo   = $titulo;
+    $this->descrip  = $desc;
+    $this->cantidad = $cantidad;
+    $this->precio   = $precio;
+    $this->id       = $idHotel;
+    $this->status   = 1;
+    $query = "INSERT INTO habitaciones VALUES(null,'$this->id','$this->titulo','$this->descrip','$this->cantidad','$this->precio','$this->status')";
+    $res = $this->mysqli->query($query);
+    if($res) {
+      return "registro completo";
+    } else {
+      return "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+    }
   }
 
     #Método para editar
   public function editar($id) {
     $this->id = $id;
-    //SELECT * FROM servicio_habitacion INNER JOIN servicios_habitaciones ON servicio_habitacion.id_servicio = servicios_habitaciones.id_servicio INNER JOIN habitaciones ON servicio_habitacion.id_hab = habitaciones.id_hab WHERE id_hab = 1;
-    $query = "SELECT * FROM servicio_habitacion INNER JOIN servicios_habitaciones ON servicio_habitacion.id_servicio = servicios_habitaciones.id_servicio WHERE id_hab ='".$this->id."'";
+    $columns = array();
+    $query = "SELECT * FROM habitaciones WHERE id_hab = '".$this->id."'";
     $res = $this->mysqli->query($query);
     if($res) {
       while ($row = $res->fetch_assoc()) {
@@ -44,9 +58,48 @@ class Habitaciones extends Conexion {
     }
   }
 
+  public function enlistarServicios($id) {
+    $this->id = $id;
+    $columns = array();
+    $query = "SELECT * FROM servicio_habitacion AS serhab INNER JOIN servicios_habitaciones ON serhab.id_servicio = servicios_habitaciones.id_servicio WHERE serhab.id_hab = '".$this->id."'";
+    $res = $this->mysqli->query($query);
+    if($res) {
+      while ($row = $res->fetch_assoc()) {
+        $columns[] = $row;
+      }
+      header('Content-type: application/json; charset=utf-8');
+      echo json_encode($columns);
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+    }
+  }
+
+  public function editarStatus($id, $status) {
+    $this->id     = $id;
+    $this->status = $status;
+    $query = "UPDATE habitaciones SET status_hab = '".$this->status."' WHERE id_hab = '".$this->id."'";
+    $res   = $this->mysqli->query($query);
+    if($res) {
+      echo "BIEN";
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+    }
+  }
+
     #Método para eliminar
   public function eliminar($id) {
 
+  }
+
+  public function eliminarServicio($id) {
+    $this->id = $id;
+    $query = "DELETE FROM servicio_habitacion WHERE id_servicio_hab = '".$this->id."'";
+    $res = $this->mysqli->query($query);
+    if($res) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
     #Método para ver datos
@@ -72,7 +125,7 @@ class Habitaciones extends Conexion {
     #Método para enlistar
   public function enlistar($idHotel) {
     $this->id = $idHotel;
-    $query     = "SELECT id_hab, titulo_habitacion, cantidad_habitacion FROM habitaciones WHERE id_hotel = '".$this->id."'";
+    $query     = "SELECT id_hab, titulo_habitacion, descripcion_habitacion FROM habitaciones WHERE id_hotel = '".$this->id."'";
     $resultado = $this->mysqli->query($query);
     if($resultado) {
       while ($row = $resultado->fetch_array()) {
@@ -82,7 +135,17 @@ class Habitaciones extends Conexion {
     } else {
       echo "NO";
     }
-    
+  }
+
+  public function contarHabitaciones($id) {
+    $this->id = $id;
+    $query = "SELECT * FROM habitaciones WHERE id_hotel = '".$this->id."'";
+    $res   = $this->mysqli->query($query);
+    if($res) {
+      $cantidadHabitaciones = $res->num_rows;
+      $valores = array("cuantasHabitaciones" => $cantidadHabitaciones);
+      echo json_encode($valores);
+    }
   }
 }
 ?>

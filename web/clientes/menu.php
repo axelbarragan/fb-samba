@@ -6,7 +6,7 @@
       </div>
       <div class="pull-left info">
         <p><?php echo $_SESSION['nombre_usuario']; ?></p>
-        <small><?php echo $_SESSION['empresa_usuario']; ?></small>
+        <small><?php echo $_SESSION['nombre_empresa']; ?></small>
       </div>
     </div>
     <ul class="sidebar-menu">
@@ -18,7 +18,7 @@
       </li>
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-hospital-o"></i>
+          <i class="fa fa-hotel"></i>
           <span>Habitaciones</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -26,7 +26,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="<?php echo URL.URLCLIEN; ?>habitaciones/agregar"><i class="fa fa-plus"></i> Agregar</a></li>
-          <li><a href="<?php echo URL.URLCLIEN; ?>habitaciones/enlistar"><i class="fa fa-circle-o"></i> Ver lista</a></li>
+          <li><a href="<?php echo URL.URLCLIEN; ?>habitaciones/enlistar"><i class="fa fa-list-alt"></i> Ver lista</a></li>
         </ul>
       </li>
       <li class="header">OTRA SECCIÓN</li>

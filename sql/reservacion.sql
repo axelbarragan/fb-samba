@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-06-2017 a las 22:56:03
+-- Tiempo de generación: 14-06-2017 a las 22:52:12
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -56,17 +56,21 @@ CREATE TABLE `hotel` (
   `direccion_hotel` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `telefono_hotel` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `correo_usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `status_hotel` tinyint(1) NOT NULL
+  `status_hotel` tinyint(1) NOT NULL,
+  `fecha_registro` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
+  `hora_registro` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
+  `url_imagen` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `hotel`
 --
 
-INSERT INTO `hotel` (`id_hotel`, `nombre_hotel`, `direccion_hotel`, `telefono_hotel`, `correo_usuario`, `status_hotel`) VALUES
-(1, 'Hotel Yaocalli', 'San Martín', '5512345678', 'cliente@mail.com', 1),
-(0, 'Flubox', 'Pendiente', '5555555', 'axel@mail.com', 1),
-(29, 'Hotel Yaocalli', 'Pendiente', '12345678', 'hola@hotelyaocalli.com.mx', 1);
+INSERT INTO `hotel` (`id_hotel`, `nombre_hotel`, `direccion_hotel`, `telefono_hotel`, `correo_usuario`, `status_hotel`, `fecha_registro`, `hora_registro`, `url_imagen`) VALUES
+(1, 'Hotel Yaocalli', 'San Martín', '5512345678', 'cliente@mail.com', 1, '', '', ''),
+(0, 'Flubox', 'Pendiente', '5555555', 'axel@mail.com', 1, '', '', ''),
+(29, 'Hotel Yaocalli', 'Pendiente', '12345678', 'hola@hotelyaocalli.com.mx', 1, '', '', ''),
+(53, 'tw', 'tw', 'tw', 'tw', 1, '14-06-2017', '17:42:05', '9136-2.png');
 
 -- --------------------------------------------------------
 
@@ -153,7 +157,8 @@ CREATE TABLE `sesion` (
 INSERT INTO `sesion` (`id_sesion`, `id_usuario`, `correo_usuario`, `pass_usuario`, `tipo_usuario`, `id_hotel`) VALUES
 (1, 1, 'axel@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Administrador', 0),
 (2, 2, 'cliente@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 1),
-(4, 4, 'hola@hotelyaocalli.com.mx', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 29);
+(4, 4, 'hola@hotelyaocalli.com.mx', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 29),
+(28, 28, 'tw', 'fcd494d0f5f6d06b08b5b519e2c94f39e429c9a137a8942c9fa30588976000c0', 'Usuario', 53);
 
 -- --------------------------------------------------------
 
@@ -200,7 +205,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `apellidos_usuario`, `id_hotel`) VALUES
 (1, 'Axel', 'Barragan', 0),
 (2, 'Pancho', 'Jolote', 1),
-(4, 'Jorge', 'Gómez', 29);
+(4, 'Jorge', 'Gómez', 29),
+(28, 'tw', 'tw', 53);
 
 --
 -- Índices para tablas volcadas
@@ -273,7 +279,7 @@ ALTER TABLE `habitaciones`
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT de la tabla `reservaciones`
 --
@@ -293,7 +299,7 @@ ALTER TABLE `servicio_habitacion`
 -- AUTO_INCREMENT de la tabla `sesion`
 --
 ALTER TABLE `sesion`
-  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT de la tabla `t_registrohotel`
 --
@@ -308,7 +314,7 @@ ALTER TABLE `t_salt`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

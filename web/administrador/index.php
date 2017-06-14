@@ -63,10 +63,10 @@ index();
 
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-              <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+              <span class="info-box-icon bg-green"><i class="fa fa-book"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
+                <span class="info-box-text">RESERVACIONES</span>
                 <span class="info-box-number">760</span>
               </div>
               <!-- /.info-box-content -->

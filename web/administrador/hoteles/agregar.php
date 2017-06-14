@@ -32,7 +32,7 @@ index();
         <!-- Info boxes -->
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <form id="formNuevoHotel" action="#" method="post">
+            <form id="formNuevoHotel" action="#" method="post" enctype="multipart/form-data">
               <div class="form-group">
                 <label for="nombre">Nombre del hotel</label>
                 <input type="text" name="nombre" class="form-control" id="nombre">
@@ -56,6 +56,10 @@ index();
               <div class="form-group">
                 <label for="apellidosContacto">Apellidos del titular del hotel</label>
                 <input type="text" name="apellidosContacto" class="form-control" id="apellidosContacto">
+              </div>
+              <div class="form-group">
+                <label for="img">Logo del hotel</label>
+                <input type="file" name="img" class="form-control" id="img">
               </div>
               <button class="btn btn-primary enviarDatos">Guardar</button>
             </form>

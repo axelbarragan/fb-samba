@@ -8,10 +8,11 @@
   $email        = $_POST['email'];
   $nombreCont   = $_POST['nombreContacto'];
   $apellidoCont = $_POST['apellidosContacto'];
+  echo $img     = $_FILES['img'];
 
-  $wish = new Hoteles;
+  //$wish = new Hoteles;
   //$wish->cerrarSesion();
-  $wish->registrar($nombreHotel, $direccion, $telefono, $email, $nombreCont, $apellidoCont);
-  $wish->cerrar();
+  //$wish->registrar($nombreHotel, $direccion, $telefono, $email, $nombreCont, $apellidoCont);
+  //$wish->cerrar();
 
 ?>

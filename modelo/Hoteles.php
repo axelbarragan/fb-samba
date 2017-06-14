@@ -2,6 +2,8 @@
 
 include_once('../conexion/conn.php');
 include_once('../config/config.php');
+include_once('SubirArchivos.php');
+include_once('FechaYHora.php');
 
 class Hoteles extends Conexion {
     //Atributos a usar
@@ -16,6 +18,8 @@ class Hoteles extends Conexion {
   private $status;
   private $salt;
   private $pass;
+  private $fecha;
+  private $hora;
 
     #Método constructor
   public function __construct() {
@@ -28,6 +32,10 @@ class Hoteles extends Conexion {
     $max = strlen($pattern)-1;
     for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
     $this->pass = $key;
+    /*---*/
+    $date = new FechaYHora;
+    $this->fecha = $date->obtenerFecha();
+    $this->hora = $date->obtenerHora();
   }
 
     #Método para cerrar la conexion
@@ -36,18 +44,19 @@ class Hoteles extends Conexion {
   }
 
     #Método para verificar datos
-  public function registrar($nombreHotel, $direccion, $telefono, $email, $nombreCont, $apellidoCont) {
-    $this->nombre    = $nombreHotel;
-    $this->direccion = $direccion;
-    $this->telefono  = $telefono;
-    $this->email      = $email;
-    $this->nombreCont = $nombreCont;
+  public function registrar($nombreHotel, $direccion, $telefono, $email, $nombreCont, $apellidoCont, $img) {
+    $this->nombre       = $nombreHotel;
+    $this->direccion    = $direccion;
+    $this->telefono     = $telefono;
+    $this->email        = $email;
+    $this->nombreCont   = $nombreCont;
     $this->apellidoCont = $apellidoCont;
-    $this->status = 1;
-    $this->salt      = SALT;
-    $this->pass = hash_hmac("sha256", $this->pass, $this->salt);
+    $this->img          = $img;
+    $this->status       = 1;
+    $this->salt         = SALT;
+    $this->pass         = hash_hmac("sha256", $this->pass, $this->salt);
 
-    $query     = "INSERT INTO hotel VALUES (null,'$this->nombre','$this->direccion','$this->telefono','$this->email','$this->status')";
+    $query = "INSERT INTO hotel VALUES (null,'$this->nombre','$this->direccion','$this->telefono','$this->email','$this->status','$this->fecha','$this->hora',null)";
     $resultado = $this->mysqli->query($query);
     if($resultado) {
       $id_hotel = $this->mysqli->insert_id;
@@ -58,7 +67,10 @@ class Hoteles extends Conexion {
         $query   = "INSERT INTO sesion VALUES (null,'$id_usuario','$this->email','$this->pass','Usuario','$id_hotel')";
         $res     = $this->mysqli->query($query);
         if($res) {
-          echo "REGISTRO COMPLETO";
+          //echo "REGISTRO COMPLETO";
+          $objeto = new SubirArchivos;
+          echo $objeto->adminSubirImagenHotel($img, $id_hotel);
+          
         } else {
           echo "Error en sesion";
         }

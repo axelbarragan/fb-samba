@@ -94,16 +94,21 @@ index();
       });
       $('.enviarDatos').click(function(e) {
         e.preventDefault();
-        var dataString = $('#formNuevoHotel').serialize();
+        alert("D");
+        //var dataString = $('#formNuevoHotel').serialize();
         $.ajax({
           type: "POST",
           url: "<?php echo URL; ?>controlador/hotelGuardar",
-          data: dataString,
+          data: new FormData($('#formNuevoHotel')[0]),
+          processData: false,
+          contentType: false,
+          cache: false,
           beforeSend: function() {
-            alert('Datos serializados: '+dataString);
+            alert('Datos serializados: ');
           },
           success: function(data) {
             alert(data);
+            console.log(data);
           },
           error: function(dataError) {
             alert(dataError);

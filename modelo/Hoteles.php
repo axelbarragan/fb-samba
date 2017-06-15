@@ -20,6 +20,8 @@ class Hoteles extends Conexion {
   private $pass;
   private $fecha;
   private $hora;
+  private $usuario;
+  private $comentario;
 
     #Método constructor
   public function __construct() {
@@ -168,14 +170,43 @@ class Hoteles extends Conexion {
   }
 
     #Método para eliminar
-  public function eliminar($id) {
+  public function eliminar($id, $usuario, $comentario) {
+    //Atributos a usar
     $this->id  = $id;
-    $query     = "DELETE FROM hotel WHERE id_hotel = '".$this->id."'";
-    $resultado = $this->mysqli->query($query);
-    if($resultado) {
-      echo "Eliminado";
+    $this->usuario = $usuario;
+    $this->comentario = $comentario;
+
+    $query =  $query = "SELECT *  FROM hotel WHERE id_hotel = '".$this->id."'";
+    $res = $this->mysqli->query($query);
+    if($row = $res->fetch_array()) {
+      $nombreHotel = $row['nombre_hotel'];
+      $query = "DELETE FROM usuarios WHERE id_hotel = '".$this->id."'";
+      $res = $this->mysqli->query($query);
+      if($res) {
+        $query = "DELETE FROM sesion WHERE id_hotel = '".$this->id."'";
+        $res = $this->mysqli->query($query);
+        if($res) {
+          $query = "DELETE FROM hotel WHERE id_hotel = '".$this->id."'";
+          $res = $this->mysqli->query($query);
+          if($res) {
+            $query = "INSERT INTO t_reg_hotel VALUES (null,'".$this->usuario."','".$this->fecha."','".$this->hora."','$nombreHotel','".$this->comentario."')";
+            $res = $this->mysqli->query($query);
+            if($res) {
+              return "El hotel ha sido borrado de la plataforma";
+            } else {
+              return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+            }
+          } else {
+            return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+          }
+        } else {
+          return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+        }
+      } else {
+        return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+      }
     } else {
-      echo "No se pudo";
+      return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
     }
   }
 

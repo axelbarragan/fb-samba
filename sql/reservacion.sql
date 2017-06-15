@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2017 a las 22:52:12
+-- Tiempo de generación: 15-06-2017 a las 04:10:07
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -171,6 +171,21 @@ CREATE TABLE `t_registrohotel` (
   `id_hotel` int(11) NOT NULL,
   `fecha` int(11) NOT NULL,
   `hora` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_reg_hotel`
+--
+
+CREATE TABLE `t_reg_hotel` (
+  `id_reg` int(50) NOT NULL,
+  `usuario_reg` varchar(30) NOT NULL,
+  `fecha_reg` varchar(15) NOT NULL,
+  `hora_reg` varchar(15) NOT NULL,
+  `hotel_reg` varchar(20) NOT NULL,
+  `desc_reg` varchar(700) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

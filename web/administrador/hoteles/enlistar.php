@@ -38,7 +38,7 @@ index();
                   <th>ID</th>
                   <th>NOMBRE</th>
                   <th>DIRECCIÓN</th>
-                  <th>TELÉFONO</th>
+                  <th>IMAGEN</th>
                   <th>ACCION</th>
                 </tr>
 

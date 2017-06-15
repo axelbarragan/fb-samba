@@ -76,6 +76,8 @@ index();
         off: 'Desactivado'
       });
 
+      
+
       $.ajax({
         type: "POST",
         url: "<?php echo URL; ?>controlador/habitacionEditar",
@@ -105,6 +107,9 @@ index();
                 "</tr>"
               );
             });
+
+            $('#example').DataTable();
+            
             /*
             for(var item in data) {
               $('#array ul').append("<li>Este es un item: "+data[item]+"</li>");

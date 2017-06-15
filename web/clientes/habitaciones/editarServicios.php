@@ -86,18 +86,6 @@ index();
           },
           success: function(data) {
             console.log(data);
-            //alert("Recibiendo: "+data);
-            /*$('#array').html("<div>");
-            $.each(data, function(i, item) {
-              $('#array').append(
-                "<ul>"+
-                "<li>"+item['nombre_servicio']+"</li>"+
-                "<li>"+item['precio_serv']+"</li>"+
-                "<li><button>AD</button</li>"+
-                "</ul>"
-              );
-            });
-            $('#array').append("</div>");*/
             $.each(data, function(i, item) {
               $('tbody').append(
                 "<tr>"+
@@ -107,28 +95,7 @@ index();
                 "</tr>"
               );
             });
-
             $('#example').DataTable();
-            
-            /*
-            for(var item in data) {
-              $('#array ul').append("<li>Este es un item: "+data[item]+"</li>");
-            }
-          */
-            //var status = data[0]["status_hotel"];
-            /*if(status == 1) {
-              $('#toggle-two').bootstrapToggle('on');
-            } else {
-              $('#toggle-two').bootstrapToggle('off');
-              $('.inputEditable').attr('disabled','disabled');
-            }            
-            $('#tituloHotel').html(data[0]["nombre_hotel"]);
-            $('#hotelNombre').val(data[0]["nombre_hotel"]);
-            $('#hotelDireccion').val(data[0]["direccion_hotel"]);
-            $('#hotelTelefono').val(data[0]["telefono_hotel"]);
-            $('#usuarioNombre').val(data[0]["nombre_usuario"]);
-            $('#usuarioApellidos').val(data[0]["apellidos_usuario"]);
-            $('#correoUsuario').val(data[0]["correo_usuario"]);*/
           }
         });
 

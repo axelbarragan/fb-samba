@@ -103,9 +103,6 @@ login();
               })
               break;
             }
-            /*if(data == 'oka') {
-              window.location.href = "redireccion";
-            }*/
           }
         });
       });

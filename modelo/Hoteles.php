@@ -87,6 +87,7 @@ class Hoteles extends Conexion {
     #Método para editar
   public function editar($id) {
     $this->id = $id;
+    $columns = array();
     $query = "SELECT * FROM hotel INNER JOIN usuarios ON hotel.id_hotel = usuarios.id_hotel INNER JOIN sesion ON hotel.correo_usuario = sesion.correo_usuario WHERE hotel.id_hotel = '".$this->id."'";
     $res = $this->mysqli->query($query);
     if($res) {
@@ -172,8 +173,8 @@ class Hoteles extends Conexion {
     #Método para eliminar
   public function eliminar($id, $usuario, $comentario) {
     //Atributos a usar
-    $this->id  = $id;
-    $this->usuario = $usuario;
+    $this->id         = $id;
+    $this->usuario    = $usuario;
     $this->comentario = $comentario;
 
     $query =  $query = "SELECT *  FROM hotel WHERE id_hotel = '".$this->id."'";
@@ -258,13 +259,18 @@ class Hoteles extends Conexion {
     #Método para enlistar
   public function enlistar() {
       //Código para enlistar
+    $columns = array();
     $query     = "SELECT id_hotel, nombre_hotel, direccion_hotel, telefono_hotel FROM hotel";
-    $resultado = $this->mysqli->query($query);
-    while ($row = $resultado->fetch_array()) {
-      $arreglo["data"][] = $row;
+    $res = $this->mysqli->query($query);
+    if($res) {
+      while ($row = $res->fetch_assoc()) {
+        $columns[] = $row;
+      }
+      header('Content-type: application/json; charset=utf-8');
+      echo json_encode($columns);
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
     }
-    echo json_encode($arreglo);
-      //return "<tr><td>asd</td><td>asd</td><td>asd</td><td>asd</td><td>asd</td><td>asd</td></tr>";
   }
 
   public function contarHoteles() {

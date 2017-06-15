@@ -10,10 +10,11 @@ $nombreCont   = $_POST['nombreContacto'];
 $apellidoCont = $_POST['apellidosContacto'];
 $img          = $_FILES['img'];
 
-$wish = new Hoteles;
+echo $nombreHotel;
+//$wish = new Hoteles;
 //echo $wish->adminSubirImagenHotel($img);
   //$wish->cerrarSesion();
-$wish->registrar($nombreHotel, $direccion, $telefono, $email, $nombreCont, $apellidoCont, $img);
-$wish->cerrar();
+//$wish->registrar($nombreHotel, $direccion, $telefono, $email, $nombreCont, $apellidoCont, $img);
+//$wish->cerrar();
 
 ?>

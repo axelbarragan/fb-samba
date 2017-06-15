@@ -35,13 +35,10 @@ index();
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>NOMBRE</th>
                   <th>DIRECCIÓN</th>
-                  <th>IMAGEN</th>
                   <th>ACCION</th>
                 </tr>
-
               </thead>
               <tbody>
               </tbody>
@@ -59,26 +56,22 @@ index();
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel">Borrar <span id="nombreHotelBorrar"></span></h4>
           </div>
           <div class="modal-body">
-          <div class="col-lg-12">
-            <form>
-              <div class="form-group">
-                <label for="hotelNombre">Nombre</label>
-                <input type="text" name="hotelNombre" disabled id="hotelNombre" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="hotelStatus">Status</label>
-                <input type="text" name="hotelStatus" disabled id="hotelStatus" class="form-control">
-              </div>
-            </form>
-          </div>
-            
+            <div class="col-lg-12">
+            <form id="formHotelBorrar" method="POST" action="">
+                <div class="form-group">
+                  <label for="hotelNombre">Razón por la que se borrará el hotel:</label>
+                  <textarea class="form-control" name="desc" id=desc></textarea>
+                  <input type="hidden" name="idHotelBorrar" id="idHotelBorrar">
+                </div>
+              </form>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <a href="editar" class="btn btn-primary">Editar</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger" id="borrarDefinitivamente">Borrar</button>
           </div>
         </div>
       </div>
@@ -101,18 +94,52 @@ index();
   <script>
     $(document).ready(function() {
 
-      var tabla = $('#example').DataTable({
-        "ajax":{
-          "method":"POST",
-          "url":"<?php echo URL; ?>controlador/hotelEnlistar",
-        },
-        "columns":[
-        {"data":"id_hotel"},
-        {"data":"nombre_hotel"},
-        {"data":"direccion_hotel"},
-        {"data":"telefono_hotel"},
-        {"defaultContent":"<button class='btn btn-primary ver'>Ver</button><button class='btn btn-danger borrar'>Borrar</button>"}
-        ]
+      mostrarDatos();
+
+
+      function mostrarDatos() {
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>controlador/hotelEnlistar",
+          beforeSend: function() {
+            //alert("Enviando");
+          },
+          success: function(data) {
+            $.each(data, function(i, item) {
+              $('tbody').append(
+                "<tr>"+
+                "<td id='nombreHotel'>"+item['nombre_hotel']+"</td>"+
+                "<td>"+item['direccion_hotel']+"</td>"+
+                "<td><button id='borrarServicio' idHotel='"+item['id_hotel']+"' class='btn btn-danger'><i class='fa fa-minus-circle' aria-hidden='true'></i> Borrar</button</td>"+
+                "</tr>"
+                );
+            });
+            $('#example').DataTable();
+          }
+        });
+      }
+
+      $('#example tbody').on('click', '#borrarServicio', function () {
+        var id = $(this).attr('idHotel');
+        $('#idHotelBorrar').val(id);
+        $('#myModal').modal('show');
+      });
+
+      $('#borrarDefinitivamente').click(function(e) {
+        e.preventDefault();
+        var dataString = $('#formHotelBorrar').serialize();
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>controlador/hotelEliminar",
+          data: dataString,
+          beforeSend: function() {
+            alert('Datos serializados: '+dataString);
+          },
+          success: function(data) {
+            alert(data);
+            mostrarDatos();
+          }
+        });
       });
 
       $('.dropdown-menu').click(function(e) {

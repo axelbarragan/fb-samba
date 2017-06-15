@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-06-2017 a las 04:10:07
+-- Tiempo de generación: 15-06-2017 a las 22:52:48
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -69,8 +69,9 @@ CREATE TABLE `hotel` (
 INSERT INTO `hotel` (`id_hotel`, `nombre_hotel`, `direccion_hotel`, `telefono_hotel`, `correo_usuario`, `status_hotel`, `fecha_registro`, `hora_registro`, `url_imagen`) VALUES
 (1, 'Hotel Yaocalli', 'San Martín', '5512345678', 'cliente@mail.com', 1, '', '', ''),
 (0, 'Flubox', 'Pendiente', '5555555', 'axel@mail.com', 1, '', '', ''),
-(29, 'Hotel Yaocalli', 'Pendiente', '12345678', 'hola@hotelyaocalli.com.mx', 1, '', '', ''),
-(53, 'tw', 'tw', 'tw', 'tw', 1, '14-06-2017', '17:42:05', '9136-2.png');
+(55, '', '', '', '', 1, '15-06-2017', '17:04:43', NULL),
+(54, '', '', '', '', 1, '15-06-2017', '16:59:41', NULL),
+(56, '', '', '', '', 1, '15-06-2017', '17:07:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -157,8 +158,9 @@ CREATE TABLE `sesion` (
 INSERT INTO `sesion` (`id_sesion`, `id_usuario`, `correo_usuario`, `pass_usuario`, `tipo_usuario`, `id_hotel`) VALUES
 (1, 1, 'axel@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Administrador', 0),
 (2, 2, 'cliente@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 1),
-(4, 4, 'hola@hotelyaocalli.com.mx', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 29),
-(28, 28, 'tw', 'fcd494d0f5f6d06b08b5b519e2c94f39e429c9a137a8942c9fa30588976000c0', 'Usuario', 53);
+(30, 30, '', '78495fd669865c2b7d302955a515b8fa4264375eb40a50cfd53d91d930c10d3c', 'Usuario', 55),
+(29, 29, '', '7be64843439d66b3440746e387502cfa0b2aff72120c304085969f5fd22a8331', 'Usuario', 54),
+(31, 31, '', '3e9b898bb21f32cabe97d48dcc9a4afc6a55ce12381ae823f6e1b9f4b9bff498', 'Usuario', 56);
 
 -- --------------------------------------------------------
 
@@ -220,8 +222,9 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `apellidos_usuario`, `id_hotel`) VALUES
 (1, 'Axel', 'Barragan', 0),
 (2, 'Pancho', 'Jolote', 1),
-(4, 'Jorge', 'Gómez', 29),
-(28, 'tw', 'tw', 53);
+(30, '', '', 55),
+(29, '', '', 54),
+(31, '', '', 56);
 
 --
 -- Índices para tablas volcadas
@@ -294,7 +297,7 @@ ALTER TABLE `habitaciones`
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 --
 -- AUTO_INCREMENT de la tabla `reservaciones`
 --
@@ -314,7 +317,7 @@ ALTER TABLE `servicio_habitacion`
 -- AUTO_INCREMENT de la tabla `sesion`
 --
 ALTER TABLE `sesion`
-  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT de la tabla `t_registrohotel`
 --
@@ -329,7 +332,7 @@ ALTER TABLE `t_salt`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

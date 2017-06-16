@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-06-2017 a las 22:52:48
+-- Tiempo de generación: 16-06-2017 a las 22:54:45
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -19,7 +19,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `reservacion`
 --
-
+DROP DATABASE `reservacion`;
+CREATE DATABASE IF NOT EXISTS `reservacion`;
+USE `reservacion`;
 -- --------------------------------------------------------
 
 --
@@ -69,9 +71,8 @@ CREATE TABLE `hotel` (
 INSERT INTO `hotel` (`id_hotel`, `nombre_hotel`, `direccion_hotel`, `telefono_hotel`, `correo_usuario`, `status_hotel`, `fecha_registro`, `hora_registro`, `url_imagen`) VALUES
 (1, 'Hotel Yaocalli', 'San Martín', '5512345678', 'cliente@mail.com', 1, '', '', ''),
 (0, 'Flubox', 'Pendiente', '5555555', 'axel@mail.com', 1, '', '', ''),
-(55, '', '', '', '', 1, '15-06-2017', '17:04:43', NULL),
-(54, '', '', '', '', 1, '15-06-2017', '16:59:41', NULL),
-(56, '', '', '', '', 1, '15-06-2017', '17:07:25', NULL);
+(59, 'Hotel Quinto Sol', 'Aun no la tengo', '12345678', 'hola@quintosol.com', 1, '16-06-2017', '12:54:10', 'boda1.jpg'),
+(58, 'Ejemplo', 'Pendiente', '12345678', 'alguien@alguien.com', 1, '16-06-2017', '12:33:18', '9136.png');
 
 -- --------------------------------------------------------
 
@@ -158,9 +159,8 @@ CREATE TABLE `sesion` (
 INSERT INTO `sesion` (`id_sesion`, `id_usuario`, `correo_usuario`, `pass_usuario`, `tipo_usuario`, `id_hotel`) VALUES
 (1, 1, 'axel@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Administrador', 0),
 (2, 2, 'cliente@mail.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 1),
-(30, 30, '', '78495fd669865c2b7d302955a515b8fa4264375eb40a50cfd53d91d930c10d3c', 'Usuario', 55),
-(29, 29, '', '7be64843439d66b3440746e387502cfa0b2aff72120c304085969f5fd22a8331', 'Usuario', 54),
-(31, 31, '', '3e9b898bb21f32cabe97d48dcc9a4afc6a55ce12381ae823f6e1b9f4b9bff498', 'Usuario', 56);
+(34, 34, 'hola@quintosol.com', '4e4feaea959d426155a480dc07ef92f4754ee93edbe56d993d74f131497e66fb', 'Usuario', 59),
+(33, 33, 'alguien@alguien.com', 'aa362538fdc4b466489edbc23d471fdc716f4e881d62b3e5808a0fcb5f1fe88e', 'Usuario', 58);
 
 -- --------------------------------------------------------
 
@@ -190,6 +190,13 @@ CREATE TABLE `t_reg_hotel` (
   `desc_reg` varchar(700) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `t_reg_hotel`
+--
+
+INSERT INTO `t_reg_hotel` (`id_reg`, `usuario_reg`, `fecha_reg`, `hora_reg`, `hotel_reg`, `desc_reg`) VALUES
+(1, 'Axel Barragan', '16-06-2017', '12:44:38', '57', 'Ejemplo');
+
 -- --------------------------------------------------------
 
 --
@@ -201,6 +208,13 @@ CREATE TABLE `t_salt` (
   `id_usuario` int(11) NOT NULL,
   `salt` varchar(15) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `t_salt`
+--
+
+INSERT INTO `t_salt` (`id_salt`, `id_usuario`, `salt`) VALUES
+(1, 1, '1234');
 
 -- --------------------------------------------------------
 
@@ -222,9 +236,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `apellidos_usuario`, `id_hotel`) VALUES
 (1, 'Axel', 'Barragan', 0),
 (2, 'Pancho', 'Jolote', 1),
-(30, '', '', 55),
-(29, '', '', 54),
-(31, '', '', 56);
+(34, 'Gerardo', 'Martínez', 59),
+(33, 'Hugo', 'Fernández', 58);
 
 --
 -- Índices para tablas volcadas
@@ -273,6 +286,12 @@ ALTER TABLE `t_registrohotel`
   ADD PRIMARY KEY (`id_registro`);
 
 --
+-- Indices de la tabla `t_reg_hotel`
+--
+ALTER TABLE `t_reg_hotel`
+  ADD PRIMARY KEY (`id_reg`);
+
+--
 -- Indices de la tabla `t_salt`
 --
 ALTER TABLE `t_salt`
@@ -297,7 +316,7 @@ ALTER TABLE `habitaciones`
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 --
 -- AUTO_INCREMENT de la tabla `reservaciones`
 --
@@ -317,22 +336,27 @@ ALTER TABLE `servicio_habitacion`
 -- AUTO_INCREMENT de la tabla `sesion`
 --
 ALTER TABLE `sesion`
-  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT de la tabla `t_registrohotel`
 --
 ALTER TABLE `t_registrohotel`
   MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `t_reg_hotel`
+--
+ALTER TABLE `t_reg_hotel`
+  MODIFY `id_reg` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT de la tabla `t_salt`
 --
 ALTER TABLE `t_salt`
-  MODIFY `id_salt` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_salt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

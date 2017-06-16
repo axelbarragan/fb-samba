@@ -9,7 +9,6 @@
 
   $wish = new Hoteles;
   $wish->eliminar($id, $usu, $com);
-  echo $wish;
   $wish->cerrar();
 
 ?>

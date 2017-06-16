@@ -32,7 +32,7 @@ index();
         <!-- Info boxes -->
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <form id="formNuevoHotel" action="#" method="post" enctype="multipart/form-data">
+            <form id="formNuevoHotel">
               <div class="form-group">
                 <label for="nombre">Nombre del hotel</label>
                 <input type="text" name="nombre" class="form-control" id="nombre">
@@ -59,7 +59,7 @@ index();
               </div>
               <div class="form-group">
                 <label for="img">Logo del hotel</label>
-                <input type="file" name="img" class="form-control" id="img">
+                <input type="file" class="form-control" id="campoFichero" />
               </div>
               <button class="btn btn-primary enviarDatos">Guardar</button>
             </form>
@@ -97,23 +97,30 @@ index();
         alert("Empieza");
         var paqueteDeDatos = new FormData();
         //var dataString = new FormData($('#formNuevoHotel')[0]);
-        paqueteDeDatos.append('img')
+        paqueteDeDatos.append('nom', $('#nombre').prop('value'));
+        paqueteDeDatos.append('dir', $('#direccion').prop('value'));
+        paqueteDeDatos.append('tel', $('#telefono').prop('value'));
+        paqueteDeDatos.append('ema', $('#email').prop('value'));
+        paqueteDeDatos.append('nomcon', $('#nombreContacto').prop('value'));
+        paqueteDeDatos.append('apecon', $('#apellidosContacto').prop('value'));
+        paqueteDeDatos.append('archivo', $('#campoFichero')[0].files[0]);
         $.ajax({
-          type: "POST",
           url: "<?php echo URL; ?>controlador/hotelGuardar",
-          data: dataString,
-          processData: false,
+          type: "POST",
           contentType: false,
-          beforeSend: function() {
-            alert('Datos serializados: '+dataString);
-            console.log(dataString);
-          },
+          data: paqueteDeDatos,
+          processData: false,
+          cache: false,
+          /*beforeSend: function() {
+            alert('Datos serializados: '+paqueteDeDatos);
+            console.log(paqueteDeDatos);
+          },*/
           success: function(data) {
             alert(data);
             console.log(data);
           },
-          error: function(dataError) {
-            alert(dataError);
+          error: function() {
+            alert("algo ha pasado");
           }
         });
       });

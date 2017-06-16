@@ -137,6 +137,7 @@ index();
           },
           success: function(data) {
             alert(data);
+            $('tbody').empty();
             mostrarDatos();
           }
         });

@@ -28,12 +28,12 @@ class Hoteles extends Conexion {
     $this->db     = Conexion::getInstance();
     $this->mysqli = $this->db->getConnection();
     /*---*/
-    $key = '';
+    /*$key = '';
     $longitud = "8";
     $pattern = '1234567890';
     $max = strlen($pattern)-1;
     for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
-    $this->pass = $key;
+    $this->pass = $key;*/
     /*---*/
     $date = new FechaYHora;
     $this->fecha = $date->obtenerFecha();
@@ -56,6 +56,7 @@ class Hoteles extends Conexion {
     $this->img          = $img;
     $this->status       = 1;
     $this->salt         = SALT;
+    $this->pass         = 1234;
     $this->pass         = hash_hmac("sha256", $this->pass, $this->salt);
 
     $query = "INSERT INTO hotel VALUES (null,'$this->nombre','$this->direccion','$this->telefono','$this->email','$this->status','$this->fecha','$this->hora',null)";
@@ -193,21 +194,21 @@ class Hoteles extends Conexion {
             $query = "INSERT INTO t_reg_hotel VALUES (null,'".$this->usuario."','".$this->fecha."','".$this->hora."','$nombreHotel','".$this->comentario."')";
             $res = $this->mysqli->query($query);
             if($res) {
-              return "El hotel ha sido borrado de la plataforma";
+              echo "El hotel ha sido borrado de la plataforma";
             } else {
-              return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+              echo "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
             }
           } else {
-            return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+            echo "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
           }
         } else {
-          return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+          echo "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
         }
       } else {
-        return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+        echo "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
       }
     } else {
-      return "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+      echo "Error: ".$this->mysqli->errno." - ".$this->mysqli->error;
     }
   }
 

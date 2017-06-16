@@ -2,6 +2,7 @@
 
 require_once('../conexion/conn.php');
 require_once('../config/config.php');
+require_once('Encriptacion.php');
 
 class Login extends Conexion {
     //Atributos a usar
@@ -19,17 +20,20 @@ class Login extends Conexion {
  public function __construct() {
   $this->db     = Conexion::getInstance();
   $this->mysqli = $this->db->getConnection();
+
 }
 
     #Método para verificar datos
 public function login($usuario, $pass) {
   $this->user = $usuario;
-  $this->pass = $pass;
-  $this->salt = SALT;
-  $this->pass = hash_hmac("sha256", $this->pass, $this->salt);
-  $query = "SELECT * FROM sesion INNER JOIN usuarios ON sesion.id_usuario = usuarios.id_usuario INNER JOIN hotel ON sesion.id_hotel = hotel.id_hotel WHERE sesion.correo_usuario = '".$this->user."'";
+  //$this->pass = $pass;
+  //$this->salt = Encriptacion::obtenerCodigoAleatorioNumerico();
+  //$this->pass = hash_hmac("sha256", $this->pass, $this->salt);
+  $query = "SELECT * FROM sesion INNER JOIN usuarios ON sesion.id_usuario = usuarios.id_usuario INNER JOIN hotel ON sesion.id_hotel = hotel.id_hotel INNER JOIN t_salt ON sesion.id_usuario = t_salt.id_usuario WHERE sesion.correo_usuario = '".$this->user."'";
   $consulta = $this->mysqli->query($query);
   if($row = $consulta->fetch_array()) {
+    $codigoSalt = $row['salt'];
+    $this->pass = Encriptacion::encLogin($codigoSalt, $pass);
     if($row['pass_usuario'] == $this->pass) {
       if($row['status_hotel'] == 1) {
         session_start();
@@ -39,7 +43,7 @@ public function login($usuario, $pass) {
         $_SESSION['empresa_usuario'] = $row['id_hotel'];
         $_SESSION['nombre_empresa']  = $row['nombre_hotel'];
         $_SESSION['status']  = $row['status_hotel'];
-        $token = md5(uniqid(rand(), TRUE));
+        $token = Encriptacion::generarToken();
         $_SESSION['token'] = $token;
         echo "oka";
       } else {

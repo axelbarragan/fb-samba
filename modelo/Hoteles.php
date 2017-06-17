@@ -4,6 +4,7 @@ include_once('../conexion/conn.php');
 include_once('../config/config.php');
 include_once('SubirArchivos.php');
 include_once('FechaYHora.php');
+include_once('Encriptacion.php');
 
 class Hoteles extends Conexion {
     //Atributos a usar
@@ -55,7 +56,7 @@ class Hoteles extends Conexion {
     $this->apellidoCont = $apellidoCont;
     $this->img          = $img;
     $this->status       = 1;
-    $this->salt         = SALT;
+    $this->salt         = Encriptacion::obtenerCodigoAleatorioNumerico();
     $this->pass         = 1234;
     $this->pass         = hash_hmac("sha256", $this->pass, $this->salt);
 
@@ -67,15 +68,19 @@ class Hoteles extends Conexion {
       $res     = $this->mysqli->query($query);
       if($res) {
         $id_usuario = $this->mysqli->insert_id;
-        $query   = "INSERT INTO sesion VALUES (null,'$id_usuario','$this->email','$this->pass','Usuario','$id_hotel')";
-        $res     = $this->mysqli->query($query);
+        $query = "INSERT INTO t_salt VALUES (null,'$id_usuario','$this->salt')";
+        $res = $this->mysqli->query($query);
         if($res) {
-          //echo "REGISTRO COMPLETO";
-          $objeto = new SubirArchivos;
-          echo $objeto->adminSubirImagenHotel($img, $id_hotel);
-          
+          $query   = "INSERT INTO sesion VALUES (null,'$id_usuario','$this->email','$this->pass','Usuario','$id_hotel')";
+          $res     = $this->mysqli->query($query);
+          if($res) {
+            $objeto = new SubirArchivos;
+            echo $objeto->adminSubirImagenHotel($img, $id_hotel);
+          } else {
+            echo "Error en sesion";
+          }
         } else {
-          echo "Error en sesion";
+          echo "Error en salt";
         }
       } else {
         echo "Error usuarios: ".$this->mysqli->connect_errno;
@@ -262,6 +267,22 @@ class Hoteles extends Conexion {
       //Código para enlistar
     $columns = array();
     $query     = "SELECT id_hotel, nombre_hotel, direccion_hotel, telefono_hotel FROM hotel";
+    $res = $this->mysqli->query($query);
+    if($res) {
+      while ($row = $res->fetch_assoc()) {
+        $columns[] = $row;
+      }
+      header('Content-type: application/json; charset=utf-8');
+      echo json_encode($columns);
+    } else {
+      echo "error: ".$this->mysqli->errno." - ".$this->mysqli->error;
+    }
+  }
+
+  public function enlistarHotelesBorrados() {
+      //Código para enlistar
+    $columns = array();
+    $query     = "SELECT usuario_reg, fecha_reg, hora_reg, hotel_reg, desc_reg FROM t_reg_hotel";
     $res = $this->mysqli->query($query);
     if($res) {
       while ($row = $res->fetch_assoc()) {

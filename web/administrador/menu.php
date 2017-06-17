@@ -27,6 +27,7 @@
         <ul class="treeview-menu">
           <li><a href="<?php echo URL.URLADMIN; ?>hoteles/agregar"><i class="fa fa-plus"></i> Agregar</a></li>
           <li><a href="<?php echo URL.URLADMIN; ?>hoteles/enlistar"><i class="fa fa-circle-o"></i> Ver lista</a></li>
+          <li><a href="<?php echo URL.URLADMIN; ?>hoteles/hoteles-borrados"><i class="fa fa-trash" aria-hidden="true"></i> Hoteles borrados</a></li>
         </ul>
       </li>
       <li class="header">OTRA SECCIÓN</li>

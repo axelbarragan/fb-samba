@@ -39,7 +39,7 @@ class Encriptacion {
 
 	}
 
-	public function obtenerCodigoAleatorioNumerico() {
+	public static function obtenerCodigoAleatorioNumerico() {
 		$key = '';
 		$longitud = "8";
 		$pattern = '1234567890';

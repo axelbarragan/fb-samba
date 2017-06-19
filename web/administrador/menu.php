@@ -30,6 +30,18 @@
           <li><a href="<?php echo URL.URLADMIN; ?>hoteles/hoteles-borrados"><i class="fa fa-trash" aria-hidden="true"></i> Hoteles borrados</a></li>
         </ul>
       </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-book"></i>
+          <span>Reservaciones</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<?php echo URL.URLADMIN; ?>reservaciones/enlistar"><i class="fa fa-list"></i> Ver lista</a></li>
+        </ul>
+      </li>
       <li class="header">OTRA SECCIÓN</li>
       <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Otro link</span></a></li>    
     </ul>

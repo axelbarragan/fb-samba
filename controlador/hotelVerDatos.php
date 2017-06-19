@@ -5,8 +5,7 @@
   $id = $_POST['id'];
 
   $wish = new Hoteles;
-  //$wish->cerrarSesion();
-  $wish->ver($id);
+  echo $wish->ver($id);
   $wish->cerrar();
 
 ?>

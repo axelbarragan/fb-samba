@@ -57,6 +57,16 @@ class Encriptacion {
 			return $key;
 	}
 
+	public static function vamoADarle() {
+		$salt = self::obtenerCodigoAleatorioNumerico();
+		$pass = 1234;
+		$resp = self::encLogin($salt, $pass);
+		return $salt." - ".$resp;
+	}
+
 }
+
+/*$obj = Encriptacion::vamoADarle();
+echo $obj;*/
 
 ?>

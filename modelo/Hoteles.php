@@ -223,7 +223,7 @@ class Hoteles extends Conexion {
     $columns  = array();
     session_start();
     $_SESSION['idHotel'] = $this->id;
-    $query =  $query = "SELECT *  FROM hotel INNER JOIN habitaciones ON hotel.id_hotel = habitaciones.id_hotel WHERE hotel.id_hotel = '".$this->id."'";
+    $query =  $query = "SELECT *  FROM hotel WHERE hotel.id_hotel = '".$this->id."'";
     $resultado = $this->mysqli->query($query);
     if($resultado) {
       while ($row = $resultado->fetch_assoc()) {

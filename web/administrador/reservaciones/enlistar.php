@@ -18,7 +18,7 @@ index();
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Hoteles
+          Reservaciones
           <small></small>
         </h1>
         <ol class="breadcrumb">
@@ -32,9 +32,8 @@ index();
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                  <th>NOMBRE</th>
+                  <th>NOMBRE DEL CLIENTE</th>
                   <th>DIRECCIÓN</th>
-                  <th>ACCION</th>
                 </tr>
               </thead>
               <tbody>
@@ -119,17 +118,17 @@ index();
       function mostrarDatos() {
         $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>controlador/hotelEnlistar",
+          url: "<?php echo URL; ?>controlador/reservacionEnlistar",
           beforeSend: function() {
             //alert("Enviando");
           },
           success: function(data) {
+            console.log(data);
             $.each(data, function(i, item) {
               $('tbody').append(
                 "<tr>"+
-                "<td id='nombreHotel'>"+item['nombre_hotel']+"</td>"+
-                "<td>"+item['direccion_hotel']+"</td>"+
-                "<td><button id='borrarServicio' idHotel='"+item['id_hotel']+"' class='btn btn-danger'><i class='fa fa-minus-circle' aria-hidden='true'></i> Borrar</button><button id='ver' idHotel='"+item['id_hotel']+"' class='btn btn-primary'>Ver</button></td>"+
+                "<td>"+item['nombreCliente']+"</td>"+
+                "<td>"+item['fechaEntrada']+"</td>"+
                 "</tr>"
                 );
             });
